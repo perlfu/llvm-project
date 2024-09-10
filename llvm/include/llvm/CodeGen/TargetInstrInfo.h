@@ -1574,6 +1574,16 @@ public:
     llvm_unreachable("target did not implement shouldClusterMemOps()");
   }
 
+  /// Returns true if the two given memory operations can be reordered
+  /// while clustering.
+  /// Will only be queried if ReorderWhileClustering is enabled and
+  /// shouldClusterMemOps already returned true for the same operation pair.
+  virtual bool
+  canReorderClusterMemOps(ArrayRef<const MachineOperand *> BaseOps1,
+                          ArrayRef<const MachineOperand *> BaseOps2) const {
+    llvm_unreachable("target did not implement canReorderClusterMemOps()");
+  }
+
   /// Reverses the branch condition of the specified condition list,
   /// returning false on success and true if it cannot be reversed.
   virtual bool

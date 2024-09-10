@@ -1891,7 +1891,9 @@ void BaseMemOpClusterMutation::clusterNeighboringMemOps(
 
     SUnit *SUa = MemOpa.SU;
     SUnit *SUb = MemOpb.SU;
-    if (!ReorderWhileClustering && SUa->NodeNum > SUb->NodeNum)
+    if (SUa->NodeNum > SUb->NodeNum &&
+        (!ReorderWhileClustering ||
+         !TII->canReorderClusterMemOps(MemOpa.BaseOps, MemOpb.BaseOps)))
       std::swap(SUa, SUb);
 
     // FIXME: Is this check really required?

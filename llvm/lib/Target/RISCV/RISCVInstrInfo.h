@@ -179,6 +179,12 @@ public:
                            unsigned ClusterSize,
                            unsigned NumBytes) const override;
 
+  bool canReorderClusterMemOps(
+      ArrayRef<const MachineOperand *> BaseOps1,
+      ArrayRef<const MachineOperand *> BaseOps2) const override {
+    return true;
+  }
+
   bool getMemOperandWithOffsetWidth(const MachineInstr &LdSt,
                                     const MachineOperand *&BaseOp,
                                     int64_t &Offset, LocationSize &Width,

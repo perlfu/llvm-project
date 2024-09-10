@@ -250,6 +250,10 @@ public:
                            unsigned ClusterSize,
                            unsigned NumBytes) const override;
 
+  bool canReorderClusterMemOps(
+      ArrayRef<const MachineOperand *> BaseOps1,
+      ArrayRef<const MachineOperand *> BaseOps2) const override;
+
   bool shouldScheduleLoadsNear(SDNode *Load0, SDNode *Load1, int64_t Offset0,
                                int64_t Offset1, unsigned NumLoads) const override;
 
