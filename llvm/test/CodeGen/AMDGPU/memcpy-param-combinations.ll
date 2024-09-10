@@ -2802,9 +2802,9 @@ define void @memcpy_p0_p5_sz31_align_8_8(ptr addrspace(0) align 8 %dst, ptr addr
 ; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[0:3], 0 offen offset:25
 ; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[0:3], 0 offen offset:26
 ; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[0:3], 0 offen offset:27
-; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[0:3], 0 offen offset:30
+; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[0:3], 0 offen offset:28
 ; CHECK-NEXT:    buffer_load_ubyte v21, v2, s[0:3], 0 offen offset:29
-; CHECK-NEXT:    buffer_load_ubyte v22, v2, s[0:3], 0 offen offset:28
+; CHECK-NEXT:    buffer_load_ubyte v22, v2, s[0:3], 0 offen offset:30
 ; CHECK-NEXT:    buffer_load_dword v3, v2, s[0:3], 0 offen
 ; CHECK-NEXT:    buffer_load_dword v4, v2, s[0:3], 0 offen offset:4
 ; CHECK-NEXT:    buffer_load_dword v5, v2, s[0:3], 0 offen offset:8
@@ -2829,10 +2829,10 @@ define void @memcpy_p0_p5_sz31_align_8_8(ptr addrspace(0) align 8 %dst, ptr addr
 ; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:24
 ; CHECK-NEXT:    s_waitcnt vmcnt(5)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v21 offset:29
-; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:30
-; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:27
 ; CHECK-NEXT:    s_waitcnt vmcnt(4)
-; CHECK-NEXT:    flat_store_byte v[0:1], v22 offset:28
+; CHECK-NEXT:    flat_store_byte v[0:1], v22 offset:30
+; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:27
+; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:28
 ; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_dwordx4 v[0:1], v[3:6]
 ; CHECK-NEXT:    s_waitcnt lgkmcnt(0)
@@ -2902,9 +2902,9 @@ define void @memcpy_p0_p5_sz31_align_16_16(ptr addrspace(0) align 16 %dst, ptr a
 ; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[0:3], 0 offen offset:25
 ; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[0:3], 0 offen offset:26
 ; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[0:3], 0 offen offset:27
-; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[0:3], 0 offen offset:30
+; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[0:3], 0 offen offset:28
 ; CHECK-NEXT:    buffer_load_ubyte v21, v2, s[0:3], 0 offen offset:29
-; CHECK-NEXT:    buffer_load_ubyte v22, v2, s[0:3], 0 offen offset:28
+; CHECK-NEXT:    buffer_load_ubyte v22, v2, s[0:3], 0 offen offset:30
 ; CHECK-NEXT:    buffer_load_dword v3, v2, s[0:3], 0 offen
 ; CHECK-NEXT:    buffer_load_dword v4, v2, s[0:3], 0 offen offset:4
 ; CHECK-NEXT:    buffer_load_dword v5, v2, s[0:3], 0 offen offset:8
@@ -2929,10 +2929,10 @@ define void @memcpy_p0_p5_sz31_align_16_16(ptr addrspace(0) align 16 %dst, ptr a
 ; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:24
 ; CHECK-NEXT:    s_waitcnt vmcnt(5)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v21 offset:29
-; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:30
-; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:27
 ; CHECK-NEXT:    s_waitcnt vmcnt(4)
-; CHECK-NEXT:    flat_store_byte v[0:1], v22 offset:28
+; CHECK-NEXT:    flat_store_byte v[0:1], v22 offset:30
+; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:27
+; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:28
 ; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_dwordx4 v[0:1], v[3:6]
 ; CHECK-NEXT:    s_waitcnt lgkmcnt(0)
@@ -4107,14 +4107,14 @@ define void @memcpy_p1_p5_sz31_align_1_1(ptr addrspace(1) align 1 %dst, ptr addr
 ; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[0:3], 0 offen offset:13
 ; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[0:3], 0 offen offset:14
 ; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[0:3], 0 offen offset:15
-; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[0:3], 0 offen offset:21
-; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[0:3], 0 offen offset:22
-; CHECK-NEXT:    buffer_load_ubyte v21, v2, s[0:3], 0 offen offset:23
-; CHECK-NEXT:    buffer_load_ubyte v22, v2, s[0:3], 0 offen offset:16
-; CHECK-NEXT:    buffer_load_ubyte v23, v2, s[0:3], 0 offen offset:17
-; CHECK-NEXT:    buffer_load_ubyte v24, v2, s[0:3], 0 offen offset:18
-; CHECK-NEXT:    buffer_load_ubyte v25, v2, s[0:3], 0 offen offset:20
-; CHECK-NEXT:    buffer_load_ubyte v26, v2, s[0:3], 0 offen offset:19
+; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[0:3], 0 offen offset:16
+; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[0:3], 0 offen offset:17
+; CHECK-NEXT:    buffer_load_ubyte v21, v2, s[0:3], 0 offen offset:18
+; CHECK-NEXT:    buffer_load_ubyte v22, v2, s[0:3], 0 offen offset:19
+; CHECK-NEXT:    buffer_load_ubyte v23, v2, s[0:3], 0 offen offset:20
+; CHECK-NEXT:    buffer_load_ubyte v24, v2, s[0:3], 0 offen offset:21
+; CHECK-NEXT:    buffer_load_ubyte v25, v2, s[0:3], 0 offen offset:22
+; CHECK-NEXT:    buffer_load_ubyte v26, v2, s[0:3], 0 offen offset:23
 ; CHECK-NEXT:    buffer_load_ubyte v27, v2, s[0:3], 0 offen offset:27
 ; CHECK-NEXT:    buffer_load_ubyte v28, v2, s[0:3], 0 offen offset:28
 ; CHECK-NEXT:    buffer_load_ubyte v29, v2, s[0:3], 0 offen offset:29
@@ -4139,20 +4139,20 @@ define void @memcpy_p1_p5_sz31_align_1_1(ptr addrspace(1) align 1 %dst, ptr addr
 ; CHECK-NEXT:    v_lshl_or_b32 v6, v16, 8, v15
 ; CHECK-NEXT:    s_waitcnt vmcnt(15)
 ; CHECK-NEXT:    v_lshl_or_b32 v9, v18, 8, v17
-; CHECK-NEXT:    s_waitcnt vmcnt(12)
-; CHECK-NEXT:    v_lshl_or_b32 v13, v21, 8, v20
-; CHECK-NEXT:    s_waitcnt vmcnt(10)
-; CHECK-NEXT:    v_lshl_or_b32 v15, v23, 8, v22
-; CHECK-NEXT:    s_waitcnt vmcnt(8)
-; CHECK-NEXT:    v_lshl_or_b32 v12, v19, 8, v25
+; CHECK-NEXT:    s_waitcnt vmcnt(13)
+; CHECK-NEXT:    v_lshl_or_b32 v15, v20, 8, v19
+; CHECK-NEXT:    s_waitcnt vmcnt(11)
+; CHECK-NEXT:    v_lshl_or_b32 v14, v22, 8, v21
+; CHECK-NEXT:    s_waitcnt vmcnt(9)
+; CHECK-NEXT:    v_lshl_or_b32 v12, v24, 8, v23
 ; CHECK-NEXT:    s_waitcnt vmcnt(7)
-; CHECK-NEXT:    v_lshl_or_b32 v14, v26, 8, v24
+; CHECK-NEXT:    v_lshl_or_b32 v13, v26, 8, v25
 ; CHECK-NEXT:    s_waitcnt vmcnt(5)
 ; CHECK-NEXT:    v_lshl_or_b32 v16, v28, 8, v27
 ; CHECK-NEXT:    s_waitcnt vmcnt(3)
 ; CHECK-NEXT:    v_lshl_or_b32 v17, v30, 8, v29
 ; CHECK-NEXT:    s_waitcnt vmcnt(2)
-; CHECK-NEXT:    v_lshl_or_b32 v18, v31, 8, v21
+; CHECK-NEXT:    v_lshl_or_b32 v18, v31, 8, v26
 ; CHECK-NEXT:    v_lshl_or_b32 v7, v13, 16, v12
 ; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    v_lshl_or_b32 v19, v2, 8, v32
@@ -4192,14 +4192,14 @@ define void @memcpy_p1_p5_sz32_align_1_1(ptr addrspace(1) align 1 %dst, ptr addr
 ; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[0:3], 0 offen offset:13
 ; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[0:3], 0 offen offset:14
 ; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[0:3], 0 offen offset:15
-; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[0:3], 0 offen offset:21
-; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[0:3], 0 offen offset:22
-; CHECK-NEXT:    buffer_load_ubyte v21, v2, s[0:3], 0 offen offset:23
-; CHECK-NEXT:    buffer_load_ubyte v22, v2, s[0:3], 0 offen offset:16
-; CHECK-NEXT:    buffer_load_ubyte v23, v2, s[0:3], 0 offen offset:17
-; CHECK-NEXT:    buffer_load_ubyte v24, v2, s[0:3], 0 offen offset:18
-; CHECK-NEXT:    buffer_load_ubyte v25, v2, s[0:3], 0 offen offset:20
-; CHECK-NEXT:    buffer_load_ubyte v26, v2, s[0:3], 0 offen offset:19
+; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[0:3], 0 offen offset:16
+; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[0:3], 0 offen offset:17
+; CHECK-NEXT:    buffer_load_ubyte v21, v2, s[0:3], 0 offen offset:18
+; CHECK-NEXT:    buffer_load_ubyte v22, v2, s[0:3], 0 offen offset:19
+; CHECK-NEXT:    buffer_load_ubyte v23, v2, s[0:3], 0 offen offset:20
+; CHECK-NEXT:    buffer_load_ubyte v24, v2, s[0:3], 0 offen offset:21
+; CHECK-NEXT:    buffer_load_ubyte v25, v2, s[0:3], 0 offen offset:22
+; CHECK-NEXT:    buffer_load_ubyte v26, v2, s[0:3], 0 offen offset:23
 ; CHECK-NEXT:    buffer_load_ubyte v27, v2, s[0:3], 0 offen offset:28
 ; CHECK-NEXT:    buffer_load_ubyte v28, v2, s[0:3], 0 offen offset:29
 ; CHECK-NEXT:    buffer_load_ubyte v29, v2, s[0:3], 0 offen offset:30
@@ -4225,14 +4225,14 @@ define void @memcpy_p1_p5_sz32_align_1_1(ptr addrspace(1) align 1 %dst, ptr addr
 ; CHECK-NEXT:    v_lshl_or_b32 v6, v16, 8, v15
 ; CHECK-NEXT:    s_waitcnt vmcnt(16)
 ; CHECK-NEXT:    v_lshl_or_b32 v9, v18, 8, v17
-; CHECK-NEXT:    s_waitcnt vmcnt(13)
-; CHECK-NEXT:    v_lshl_or_b32 v13, v21, 8, v20
-; CHECK-NEXT:    s_waitcnt vmcnt(11)
-; CHECK-NEXT:    v_lshl_or_b32 v15, v23, 8, v22
-; CHECK-NEXT:    s_waitcnt vmcnt(9)
-; CHECK-NEXT:    v_lshl_or_b32 v12, v19, 8, v25
+; CHECK-NEXT:    s_waitcnt vmcnt(14)
+; CHECK-NEXT:    v_lshl_or_b32 v15, v20, 8, v19
+; CHECK-NEXT:    s_waitcnt vmcnt(12)
+; CHECK-NEXT:    v_lshl_or_b32 v14, v22, 8, v21
+; CHECK-NEXT:    s_waitcnt vmcnt(10)
+; CHECK-NEXT:    v_lshl_or_b32 v12, v24, 8, v23
 ; CHECK-NEXT:    s_waitcnt vmcnt(8)
-; CHECK-NEXT:    v_lshl_or_b32 v14, v26, 8, v24
+; CHECK-NEXT:    v_lshl_or_b32 v13, v26, 8, v25
 ; CHECK-NEXT:    s_waitcnt vmcnt(6)
 ; CHECK-NEXT:    v_lshl_or_b32 v16, v28, 8, v27
 ; CHECK-NEXT:    s_waitcnt vmcnt(4)
@@ -5767,14 +5767,14 @@ define void @memcpy_p3_p5_sz31_align_1_1(ptr addrspace(3) align 1 %dst, ptr addr
 ; CHECK-NEXT:    buffer_load_ubyte v15, v1, s[0:3], 0 offen offset:13
 ; CHECK-NEXT:    buffer_load_ubyte v16, v1, s[0:3], 0 offen offset:14
 ; CHECK-NEXT:    buffer_load_ubyte v17, v1, s[0:3], 0 offen offset:15
-; CHECK-NEXT:    buffer_load_ubyte v18, v1, s[0:3], 0 offen offset:21
-; CHECK-NEXT:    buffer_load_ubyte v19, v1, s[0:3], 0 offen offset:22
-; CHECK-NEXT:    buffer_load_ubyte v20, v1, s[0:3], 0 offen offset:23
-; CHECK-NEXT:    buffer_load_ubyte v21, v1, s[0:3], 0 offen offset:16
-; CHECK-NEXT:    buffer_load_ubyte v22, v1, s[0:3], 0 offen offset:17
-; CHECK-NEXT:    buffer_load_ubyte v23, v1, s[0:3], 0 offen offset:18
-; CHECK-NEXT:    buffer_load_ubyte v24, v1, s[0:3], 0 offen offset:20
-; CHECK-NEXT:    buffer_load_ubyte v25, v1, s[0:3], 0 offen offset:19
+; CHECK-NEXT:    buffer_load_ubyte v18, v1, s[0:3], 0 offen offset:16
+; CHECK-NEXT:    buffer_load_ubyte v19, v1, s[0:3], 0 offen offset:17
+; CHECK-NEXT:    buffer_load_ubyte v20, v1, s[0:3], 0 offen offset:18
+; CHECK-NEXT:    buffer_load_ubyte v21, v1, s[0:3], 0 offen offset:19
+; CHECK-NEXT:    buffer_load_ubyte v22, v1, s[0:3], 0 offen offset:20
+; CHECK-NEXT:    buffer_load_ubyte v23, v1, s[0:3], 0 offen offset:21
+; CHECK-NEXT:    buffer_load_ubyte v24, v1, s[0:3], 0 offen offset:22
+; CHECK-NEXT:    buffer_load_ubyte v25, v1, s[0:3], 0 offen offset:23
 ; CHECK-NEXT:    buffer_load_ubyte v26, v1, s[0:3], 0 offen offset:27
 ; CHECK-NEXT:    buffer_load_ubyte v27, v1, s[0:3], 0 offen offset:28
 ; CHECK-NEXT:    buffer_load_ubyte v28, v1, s[0:3], 0 offen offset:29
@@ -5799,20 +5799,20 @@ define void @memcpy_p3_p5_sz31_align_1_1(ptr addrspace(3) align 1 %dst, ptr addr
 ; CHECK-NEXT:    v_lshl_or_b32 v5, v15, 8, v14
 ; CHECK-NEXT:    s_waitcnt vmcnt(15)
 ; CHECK-NEXT:    v_lshl_or_b32 v8, v17, 8, v16
-; CHECK-NEXT:    s_waitcnt vmcnt(12)
-; CHECK-NEXT:    v_lshl_or_b32 v12, v20, 8, v19
-; CHECK-NEXT:    s_waitcnt vmcnt(10)
-; CHECK-NEXT:    v_lshl_or_b32 v14, v22, 8, v21
-; CHECK-NEXT:    s_waitcnt vmcnt(8)
-; CHECK-NEXT:    v_lshl_or_b32 v11, v18, 8, v24
+; CHECK-NEXT:    s_waitcnt vmcnt(13)
+; CHECK-NEXT:    v_lshl_or_b32 v14, v19, 8, v18
+; CHECK-NEXT:    s_waitcnt vmcnt(11)
+; CHECK-NEXT:    v_lshl_or_b32 v13, v21, 8, v20
+; CHECK-NEXT:    s_waitcnt vmcnt(9)
+; CHECK-NEXT:    v_lshl_or_b32 v11, v23, 8, v22
 ; CHECK-NEXT:    s_waitcnt vmcnt(7)
-; CHECK-NEXT:    v_lshl_or_b32 v13, v25, 8, v23
+; CHECK-NEXT:    v_lshl_or_b32 v12, v25, 8, v24
 ; CHECK-NEXT:    s_waitcnt vmcnt(5)
 ; CHECK-NEXT:    v_lshl_or_b32 v15, v27, 8, v26
 ; CHECK-NEXT:    s_waitcnt vmcnt(3)
 ; CHECK-NEXT:    v_lshl_or_b32 v16, v29, 8, v28
 ; CHECK-NEXT:    s_waitcnt vmcnt(2)
-; CHECK-NEXT:    v_lshl_or_b32 v17, v30, 8, v20
+; CHECK-NEXT:    v_lshl_or_b32 v17, v30, 8, v25
 ; CHECK-NEXT:    v_lshl_or_b32 v6, v12, 16, v11
 ; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    v_lshl_or_b32 v18, v1, 8, v31
@@ -5853,14 +5853,14 @@ define void @memcpy_p3_p5_sz32_align_1_1(ptr addrspace(3) align 1 %dst, ptr addr
 ; CHECK-NEXT:    buffer_load_ubyte v15, v1, s[0:3], 0 offen offset:13
 ; CHECK-NEXT:    buffer_load_ubyte v16, v1, s[0:3], 0 offen offset:14
 ; CHECK-NEXT:    buffer_load_ubyte v17, v1, s[0:3], 0 offen offset:15
-; CHECK-NEXT:    buffer_load_ubyte v18, v1, s[0:3], 0 offen offset:21
-; CHECK-NEXT:    buffer_load_ubyte v19, v1, s[0:3], 0 offen offset:22
-; CHECK-NEXT:    buffer_load_ubyte v20, v1, s[0:3], 0 offen offset:23
-; CHECK-NEXT:    buffer_load_ubyte v21, v1, s[0:3], 0 offen offset:16
-; CHECK-NEXT:    buffer_load_ubyte v22, v1, s[0:3], 0 offen offset:17
-; CHECK-NEXT:    buffer_load_ubyte v23, v1, s[0:3], 0 offen offset:18
-; CHECK-NEXT:    buffer_load_ubyte v24, v1, s[0:3], 0 offen offset:20
-; CHECK-NEXT:    buffer_load_ubyte v25, v1, s[0:3], 0 offen offset:19
+; CHECK-NEXT:    buffer_load_ubyte v18, v1, s[0:3], 0 offen offset:16
+; CHECK-NEXT:    buffer_load_ubyte v19, v1, s[0:3], 0 offen offset:17
+; CHECK-NEXT:    buffer_load_ubyte v20, v1, s[0:3], 0 offen offset:18
+; CHECK-NEXT:    buffer_load_ubyte v21, v1, s[0:3], 0 offen offset:19
+; CHECK-NEXT:    buffer_load_ubyte v22, v1, s[0:3], 0 offen offset:20
+; CHECK-NEXT:    buffer_load_ubyte v23, v1, s[0:3], 0 offen offset:21
+; CHECK-NEXT:    buffer_load_ubyte v24, v1, s[0:3], 0 offen offset:22
+; CHECK-NEXT:    buffer_load_ubyte v25, v1, s[0:3], 0 offen offset:23
 ; CHECK-NEXT:    buffer_load_ubyte v26, v1, s[0:3], 0 offen offset:28
 ; CHECK-NEXT:    buffer_load_ubyte v27, v1, s[0:3], 0 offen offset:29
 ; CHECK-NEXT:    buffer_load_ubyte v28, v1, s[0:3], 0 offen offset:30
@@ -5886,14 +5886,14 @@ define void @memcpy_p3_p5_sz32_align_1_1(ptr addrspace(3) align 1 %dst, ptr addr
 ; CHECK-NEXT:    v_lshl_or_b32 v5, v15, 8, v14
 ; CHECK-NEXT:    s_waitcnt vmcnt(16)
 ; CHECK-NEXT:    v_lshl_or_b32 v8, v17, 8, v16
-; CHECK-NEXT:    s_waitcnt vmcnt(13)
-; CHECK-NEXT:    v_lshl_or_b32 v12, v20, 8, v19
-; CHECK-NEXT:    s_waitcnt vmcnt(11)
-; CHECK-NEXT:    v_lshl_or_b32 v14, v22, 8, v21
-; CHECK-NEXT:    s_waitcnt vmcnt(9)
-; CHECK-NEXT:    v_lshl_or_b32 v11, v18, 8, v24
+; CHECK-NEXT:    s_waitcnt vmcnt(14)
+; CHECK-NEXT:    v_lshl_or_b32 v14, v19, 8, v18
+; CHECK-NEXT:    s_waitcnt vmcnt(12)
+; CHECK-NEXT:    v_lshl_or_b32 v13, v21, 8, v20
+; CHECK-NEXT:    s_waitcnt vmcnt(10)
+; CHECK-NEXT:    v_lshl_or_b32 v11, v23, 8, v22
 ; CHECK-NEXT:    s_waitcnt vmcnt(8)
-; CHECK-NEXT:    v_lshl_or_b32 v13, v25, 8, v23
+; CHECK-NEXT:    v_lshl_or_b32 v12, v25, 8, v24
 ; CHECK-NEXT:    s_waitcnt vmcnt(6)
 ; CHECK-NEXT:    v_lshl_or_b32 v15, v27, 8, v26
 ; CHECK-NEXT:    s_waitcnt vmcnt(4)

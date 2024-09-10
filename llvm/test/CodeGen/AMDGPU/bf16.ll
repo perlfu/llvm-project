@@ -1865,21 +1865,19 @@ define void @v_store_global_v64bf16(<64 x bfloat> %val, ptr addrspace(1) %ptr) {
 ; GFX7-NEXT:    v_alignbit_b32 v7, v0, v1, 16
 ; GFX7-NEXT:    s_waitcnt vmcnt(9)
 ; GFX7-NEXT:    v_mul_f32_e32 v0, 1.0, v37
-; GFX7-NEXT:    v_mul_f32_e32 v20, 1.0, v28
-; GFX7-NEXT:    buffer_load_dword v28, off, s[0:3], s32 offset:64
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v0, 16, v0
-; GFX7-NEXT:    s_waitcnt vmcnt(9)
-; GFX7-NEXT:    v_mul_f32_e32 v1, 1.0, v38
-; GFX7-NEXT:    v_alignbit_b32 v4, v33, v4, 16
 ; GFX7-NEXT:    s_waitcnt vmcnt(8)
+; GFX7-NEXT:    v_mul_f32_e32 v1, 1.0, v38
+; GFX7-NEXT:    s_waitcnt vmcnt(7)
 ; GFX7-NEXT:    v_mul_f32_e32 v18, 1.0, v39
 ; GFX7-NEXT:    v_alignbit_b32 v36, v0, v1, 16
-; GFX7-NEXT:    s_waitcnt vmcnt(6)
+; GFX7-NEXT:    s_waitcnt vmcnt(5)
 ; GFX7-NEXT:    v_mul_f32_e32 v0, 1.0, v49
+; GFX7-NEXT:    v_alignbit_b32 v4, v33, v4, 16
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v18, 16, v18
 ; GFX7-NEXT:    v_mul_f32_e32 v19, 1.0, v48
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v0, 16, v0
-; GFX7-NEXT:    s_waitcnt vmcnt(5)
+; GFX7-NEXT:    s_waitcnt vmcnt(4)
 ; GFX7-NEXT:    v_mul_f32_e32 v1, 1.0, v50
 ; GFX7-NEXT:    v_alignbit_b32 v35, v18, v19, 16
 ; GFX7-NEXT:    v_alignbit_b32 v34, v0, v1, 16
@@ -1888,11 +1886,14 @@ define void @v_store_global_v64bf16(<64 x bfloat> %val, ptr addrspace(1) %ptr) {
 ; GFX7-NEXT:    buffer_load_dword v18, off, s[0:3], s32 offset:24
 ; GFX7-NEXT:    buffer_load_dword v19, off, s[0:3], s32 offset:20
 ; GFX7-NEXT:    buffer_load_dword v22, off, s[0:3], s32 offset:16
+; GFX7-NEXT:    v_mul_f32_e32 v20, 1.0, v28
 ; GFX7-NEXT:    buffer_load_dword v23, off, s[0:3], s32 offset:12
-; GFX7-NEXT:    s_waitcnt vmcnt(8)
-; GFX7-NEXT:    v_mul_f32_e32 v14, 1.0, v14
+; GFX7-NEXT:    buffer_load_dword v28, off, s[0:3], s32 offset:64
+; GFX7-NEXT:    s_waitcnt vmcnt(9)
 ; GFX7-NEXT:    v_mul_f32_e32 v6, 1.0, v6
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v6, 16, v6
+; GFX7-NEXT:    s_waitcnt vmcnt(8)
+; GFX7-NEXT:    v_mul_f32_e32 v14, 1.0, v14
 ; GFX7-NEXT:    v_alignbit_b32 v33, v6, v14, 16
 ; GFX7-NEXT:    v_mul_f32_e32 v6, 1.0, v17
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v6, 16, v6
@@ -1900,18 +1901,18 @@ define void @v_store_global_v64bf16(<64 x bfloat> %val, ptr addrspace(1) %ptr) {
 ; GFX7-NEXT:    v_alignbit_b32 v6, v6, v14, 16
 ; GFX7-NEXT:    s_waitcnt vmcnt(7)
 ; GFX7-NEXT:    v_mul_f32_e32 v14, 1.0, v15
-; GFX7-NEXT:    v_lshrrev_b32_e32 v14, 16, v14
 ; GFX7-NEXT:    v_mul_f32_e32 v15, 1.0, v30
-; GFX7-NEXT:    buffer_store_dwordx4 v[33:36], v[31:32], s[4:7], 0 addr64 offset:96
 ; GFX7-NEXT:    v_mul_f32_e32 v16, 1.0, v29
+; GFX7-NEXT:    buffer_load_dword v29, off, s[0:3], s32 offset:8
+; GFX7-NEXT:    buffer_load_dword v30, off, s[0:3], s32 offset:4
+; GFX7-NEXT:    v_lshrrev_b32_e32 v14, 16, v14
+; GFX7-NEXT:    buffer_store_dwordx4 v[33:36], v[31:32], s[4:7], 0 addr64 offset:96
 ; GFX7-NEXT:    v_alignbit_b32 v17, v14, v15, 16
 ; GFX7-NEXT:    buffer_load_dword v35, off, s[0:3], s32 offset:52
 ; GFX7-NEXT:    v_mul_f32_e32 v14, 1.0, v27
 ; GFX7-NEXT:    buffer_load_dword v27, off, s[0:3], s32 offset:48
 ; GFX7-NEXT:    v_mul_f32_e32 v15, 1.0, v26
 ; GFX7-NEXT:    buffer_load_dword v26, off, s[0:3], s32 offset:44
-; GFX7-NEXT:    buffer_load_dword v29, off, s[0:3], s32 offset:8
-; GFX7-NEXT:    buffer_load_dword v30, off, s[0:3], s32 offset:4
 ; GFX7-NEXT:    buffer_load_dword v33, off, s[0:3], s32 offset:60
 ; GFX7-NEXT:    buffer_load_dword v34, off, s[0:3], s32 offset:56
 ; GFX7-NEXT:    buffer_load_dword v36, off, s[0:3], s32 offset:40
@@ -1929,28 +1930,27 @@ define void @v_store_global_v64bf16(<64 x bfloat> %val, ptr addrspace(1) %ptr) {
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v0, 16, v0
 ; GFX7-NEXT:    v_mul_f32_e32 v1, 1.0, v1
 ; GFX7-NEXT:    v_alignbit_b32 v21, v0, v1, 16
-; GFX7-NEXT:    s_waitcnt vmcnt(13)
 ; GFX7-NEXT:    v_mul_f32_e32 v0, 1.0, v18
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v0, 16, v0
-; GFX7-NEXT:    s_waitcnt vmcnt(12)
+; GFX7-NEXT:    s_waitcnt vmcnt(13)
 ; GFX7-NEXT:    v_mul_f32_e32 v1, 1.0, v19
 ; GFX7-NEXT:    v_alignbit_b32 v20, v0, v1, 16
-; GFX7-NEXT:    s_waitcnt vmcnt(11)
+; GFX7-NEXT:    s_waitcnt vmcnt(12)
 ; GFX7-NEXT:    v_mul_f32_e32 v0, 1.0, v22
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v0, 16, v0
-; GFX7-NEXT:    s_waitcnt vmcnt(10)
+; GFX7-NEXT:    s_waitcnt vmcnt(11)
 ; GFX7-NEXT:    v_mul_f32_e32 v1, 1.0, v23
 ; GFX7-NEXT:    v_alignbit_b32 v19, v0, v1, 16
-; GFX7-NEXT:    s_waitcnt vmcnt(8)
-; GFX7-NEXT:    v_mul_f32_e32 v23, 1.0, v35
-; GFX7-NEXT:    s_waitcnt vmcnt(5)
+; GFX7-NEXT:    s_waitcnt vmcnt(9)
 ; GFX7-NEXT:    v_mul_f32_e32 v0, 1.0, v29
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v0, 16, v0
-; GFX7-NEXT:    s_waitcnt vmcnt(4)
+; GFX7-NEXT:    s_waitcnt vmcnt(8)
 ; GFX7-NEXT:    v_mul_f32_e32 v1, 1.0, v30
 ; GFX7-NEXT:    v_alignbit_b32 v18, v0, v1, 16
 ; GFX7-NEXT:    v_mul_f32_e32 v0, 1.0, v28
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v0, 16, v0
+; GFX7-NEXT:    s_waitcnt vmcnt(6)
+; GFX7-NEXT:    v_mul_f32_e32 v23, 1.0, v35
 ; GFX7-NEXT:    s_waitcnt vmcnt(3)
 ; GFX7-NEXT:    v_mul_f32_e32 v1, 1.0, v33
 ; GFX7-NEXT:    s_waitcnt vmcnt(2)
@@ -35787,15 +35787,15 @@ define <16 x bfloat> @v_select_v16bf16(i1 %cond, <16 x bfloat> %a, <16 x bfloat>
 ; GFX7-NEXT:    v_alignbit_b32 v8, v8, v17, 16
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v10, 16, v10
 ; GFX7-NEXT:    v_mul_f32_e32 v17, 1.0, v25
-; GFX7-NEXT:    v_mul_f32_e32 v12, 1.0, v12
 ; GFX7-NEXT:    v_alignbit_b32 v10, v10, v17, 16
+; GFX7-NEXT:    v_mul_f32_e32 v12, 1.0, v12
+; GFX7-NEXT:    v_mul_f32_e32 v17, 1.0, v28
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v12, 16, v12
 ; GFX7-NEXT:    v_mul_f32_e32 v11, 1.0, v11
-; GFX7-NEXT:    v_mul_f32_e32 v17, 1.0, v28
-; GFX7-NEXT:    v_alignbit_b32 v11, v12, v11, 16
-; GFX7-NEXT:    buffer_load_dword v12, off, s[0:3], s32 offset:4
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v17, 16, v17
 ; GFX7-NEXT:    v_mul_f32_e32 v18, 1.0, v27
+; GFX7-NEXT:    v_alignbit_b32 v11, v12, v11, 16
+; GFX7-NEXT:    buffer_load_dword v12, off, s[0:3], s32 offset:4
 ; GFX7-NEXT:    v_alignbit_b32 v17, v17, v18, 16
 ; GFX7-NEXT:    buffer_load_dword v18, off, s[0:3], s32
 ; GFX7-NEXT:    v_mul_f32_e32 v14, 1.0, v14
@@ -36178,17 +36178,17 @@ define <32 x bfloat> @v_select_v32bf16(i1 %cond, <32 x bfloat> %a, <32 x bfloat>
 ; GFX7-NEXT:    v_mul_f32_e32 v5, 1.0, v10
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v5, 16, v5
 ; GFX7-NEXT:    v_mul_f32_e32 v6, 1.0, v9
-; GFX7-NEXT:    v_mul_f32_e32 v18, 1.0, v18
 ; GFX7-NEXT:    v_alignbit_b32 v5, v5, v6, 16
 ; GFX7-NEXT:    buffer_load_dword v6, off, s[0:3], s32 offset:12
 ; GFX7-NEXT:    buffer_load_dword v8, off, s[0:3], s32 offset:16
 ; GFX7-NEXT:    buffer_load_dword v9, off, s[0:3], s32 offset:24
 ; GFX7-NEXT:    buffer_load_dword v31, off, s[0:3], s32 offset:40
+; GFX7-NEXT:    buffer_load_dword v7, off, s[0:3], s32 offset:8
+; GFX7-NEXT:    v_mul_f32_e32 v18, 1.0, v18
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v18, 16, v18
 ; GFX7-NEXT:    v_mul_f32_e32 v17, 1.0, v17
 ; GFX7-NEXT:    v_alignbit_b32 v17, v18, v17, 16
 ; GFX7-NEXT:    buffer_load_dword v18, off, s[0:3], s32 offset:76
-; GFX7-NEXT:    buffer_load_dword v7, off, s[0:3], s32 offset:8
 ; GFX7-NEXT:    v_mul_f32_e32 v14, 1.0, v14
 ; GFX7-NEXT:    v_mul_f32_e32 v28, 1.0, v28
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v14, 16, v14
@@ -36225,6 +36225,7 @@ define <32 x bfloat> @v_select_v32bf16(i1 %cond, <32 x bfloat> %a, <32 x bfloat>
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v30, 16, v30
 ; GFX7-NEXT:    v_mul_f32_e32 v29, 1.0, v29
 ; GFX7-NEXT:    v_alignbit_b32 v29, v30, v29, 16
+; GFX7-NEXT:    buffer_load_dword v32, off, s[0:3], s32
 ; GFX7-NEXT:    v_and_b32_e32 v0, 1, v0
 ; GFX7-NEXT:    v_cmp_eq_u32_e32 vcc, 1, v0
 ; GFX7-NEXT:    buffer_load_dword v10, off, s[0:3], s32 offset:32
@@ -36238,52 +36239,50 @@ define <32 x bfloat> @v_select_v32bf16(i1 %cond, <32 x bfloat> %a, <32 x bfloat>
 ; GFX7-NEXT:    buffer_load_dword v26, off, s[0:3], s32 offset:108
 ; GFX7-NEXT:    buffer_load_dword v30, off, s[0:3], s32 offset:124
 ; GFX7-NEXT:    buffer_load_dword v33, off, s[0:3], s32 offset:128
-; GFX7-NEXT:    buffer_load_dword v32, off, s[0:3], s32
 ; GFX7-NEXT:    s_waitcnt vmcnt(14)
 ; GFX7-NEXT:    v_mul_f32_e32 v6, 1.0, v6
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v6, 16, v6
 ; GFX7-NEXT:    v_mul_f32_e32 v8, 1.0, v8
 ; GFX7-NEXT:    v_mul_f32_e32 v9, 1.0, v9
-; GFX7-NEXT:    v_mul_f32_e32 v31, 1.0, v31
 ; GFX7-NEXT:    s_waitcnt vmcnt(13)
-; GFX7-NEXT:    v_mul_f32_e32 v18, 1.0, v18
-; GFX7-NEXT:    s_waitcnt vmcnt(12)
 ; GFX7-NEXT:    v_mul_f32_e32 v7, 1.0, v7
 ; GFX7-NEXT:    v_alignbit_b32 v6, v6, v7, 16
 ; GFX7-NEXT:    buffer_load_dword v7, off, s[0:3], s32 offset:20
-; GFX7-NEXT:    v_lshrrev_b32_e32 v18, 16, v18
+; GFX7-NEXT:    v_mul_f32_e32 v31, 1.0, v31
 ; GFX7-NEXT:    v_cndmask_b32_e32 v1, v6, v1, vcc
+; GFX7-NEXT:    s_waitcnt vmcnt(13)
+; GFX7-NEXT:    v_mul_f32_e32 v18, 1.0, v18
+; GFX7-NEXT:    v_lshrrev_b32_e32 v18, 16, v18
 ; GFX7-NEXT:    v_lshlrev_b32_e32 v0, 16, v1
 ; GFX7-NEXT:    v_and_b32_e32 v1, 0xffff0000, v1
-; GFX7-NEXT:    s_waitcnt vmcnt(12)
-; GFX7-NEXT:    v_mul_f32_e32 v10, 1.0, v10
 ; GFX7-NEXT:    s_waitcnt vmcnt(11)
+; GFX7-NEXT:    v_mul_f32_e32 v10, 1.0, v10
+; GFX7-NEXT:    s_waitcnt vmcnt(10)
 ; GFX7-NEXT:    v_mul_f32_e32 v14, 1.0, v14
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v14, 16, v14
-; GFX7-NEXT:    s_waitcnt vmcnt(9)
+; GFX7-NEXT:    s_waitcnt vmcnt(8)
 ; GFX7-NEXT:    v_mul_f32_e32 v12, 1.0, v12
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v12, 16, v12
-; GFX7-NEXT:    s_waitcnt vmcnt(7)
+; GFX7-NEXT:    s_waitcnt vmcnt(6)
 ; GFX7-NEXT:    v_mul_f32_e32 v16, 1.0, v16
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v16, 16, v16
-; GFX7-NEXT:    s_waitcnt vmcnt(6)
+; GFX7-NEXT:    s_waitcnt vmcnt(5)
 ; GFX7-NEXT:    v_mul_f32_e32 v20, 1.0, v20
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v20, 16, v20
-; GFX7-NEXT:    s_waitcnt vmcnt(5)
+; GFX7-NEXT:    s_waitcnt vmcnt(4)
 ; GFX7-NEXT:    v_mul_f32_e32 v22, 1.0, v22
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v22, 16, v22
 ; GFX7-NEXT:    v_mul_f32_e32 v24, 1.0, v24
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v24, 16, v24
-; GFX7-NEXT:    s_waitcnt vmcnt(4)
+; GFX7-NEXT:    s_waitcnt vmcnt(3)
 ; GFX7-NEXT:    v_mul_f32_e32 v26, 1.0, v26
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v26, 16, v26
 ; GFX7-NEXT:    v_mul_f32_e32 v28, 1.0, v28
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v28, 16, v28
-; GFX7-NEXT:    s_waitcnt vmcnt(3)
+; GFX7-NEXT:    s_waitcnt vmcnt(2)
 ; GFX7-NEXT:    v_mul_f32_e32 v30, 1.0, v30
 ; GFX7-NEXT:    v_lshrrev_b32_e32 v30, 16, v30
 ; GFX7-NEXT:    s_waitcnt vmcnt(1)
-; GFX7-NEXT:    v_mul_f32_e32 v32, 1.0, v32
 ; GFX7-NEXT:    v_mul_f32_e32 v33, 1.0, v33
 ; GFX7-NEXT:    s_waitcnt vmcnt(0)
 ; GFX7-NEXT:    v_mul_f32_e32 v7, 1.0, v7
@@ -36384,6 +36383,7 @@ define <32 x bfloat> @v_select_v32bf16(i1 %cond, <32 x bfloat> %a, <32 x bfloat>
 ; GFX7-NEXT:    v_mul_f32_e32 v31, 1.0, v31
 ; GFX7-NEXT:    v_alignbit_b32 v30, v30, v31, 16
 ; GFX7-NEXT:    buffer_load_dword v31, off, s[0:3], s32 offset:4
+; GFX7-NEXT:    v_mul_f32_e32 v32, 1.0, v32
 ; GFX7-NEXT:    v_cndmask_b32_e32 v29, v30, v29, vcc
 ; GFX7-NEXT:    v_lshlrev_b32_e32 v28, 16, v29
 ; GFX7-NEXT:    v_and_b32_e32 v29, 0xffff0000, v29
@@ -37633,27 +37633,27 @@ define <16 x bfloat> @v_vselect_v16bf16(<16 x i1> %cond, <16 x bfloat> %a, <16 x
 ; GFX7-NEXT:    v_cmp_eq_u32_e64 s[24:25], 1, v0
 ; GFX7-NEXT:    buffer_load_dword v0, off, s[0:3], s32
 ; GFX7-NEXT:    buffer_load_dword v1, off, s[0:3], s32 offset:64
-; GFX7-NEXT:    v_and_b32_e32 v2, 1, v12
 ; GFX7-NEXT:    v_writelane_b32 v31, s30, 0
-; GFX7-NEXT:    v_cmp_eq_u32_e64 s[26:27], 1, v2
-; GFX7-NEXT:    buffer_load_dword v2, off, s[0:3], s32 offset:60
-; GFX7-NEXT:    v_and_b32_e32 v3, 1, v13
 ; GFX7-NEXT:    v_writelane_b32 v31, s31, 1
-; GFX7-NEXT:    v_cmp_eq_u32_e64 s[28:29], 1, v3
-; GFX7-NEXT:    buffer_load_dword v3, off, s[0:3], s32 offset:56
-; GFX7-NEXT:    v_and_b32_e32 v4, 1, v14
 ; GFX7-NEXT:    v_writelane_b32 v31, s34, 2
-; GFX7-NEXT:    v_cmp_eq_u32_e64 s[30:31], 1, v4
-; GFX7-NEXT:    buffer_load_dword v4, off, s[0:3], s32 offset:52
 ; GFX7-NEXT:    v_and_b32_e32 v5, 1, v15
 ; GFX7-NEXT:    v_writelane_b32 v31, s35, 3
+; GFX7-NEXT:    v_and_b32_e32 v2, 1, v12
+; GFX7-NEXT:    v_and_b32_e32 v3, 1, v13
+; GFX7-NEXT:    v_and_b32_e32 v4, 1, v14
 ; GFX7-NEXT:    v_cmp_eq_u32_e64 s[34:35], 1, v5
-; GFX7-NEXT:    buffer_load_dword v5, off, s[0:3], s32 offset:48
+; GFX7-NEXT:    v_cmp_eq_u32_e64 s[26:27], 1, v2
+; GFX7-NEXT:    v_cmp_eq_u32_e64 s[28:29], 1, v3
+; GFX7-NEXT:    v_cmp_eq_u32_e64 s[30:31], 1, v4
 ; GFX7-NEXT:    v_mul_f32_e32 v16, 1.0, v16
 ; GFX7-NEXT:    v_mul_f32_e32 v17, 1.0, v17
 ; GFX7-NEXT:    v_mul_f32_e32 v18, 1.0, v18
 ; GFX7-NEXT:    v_mul_f32_e32 v19, 1.0, v19
 ; GFX7-NEXT:    v_mul_f32_e32 v20, 1.0, v20
+; GFX7-NEXT:    buffer_load_dword v2, off, s[0:3], s32 offset:60
+; GFX7-NEXT:    buffer_load_dword v3, off, s[0:3], s32 offset:56
+; GFX7-NEXT:    buffer_load_dword v4, off, s[0:3], s32 offset:52
+; GFX7-NEXT:    buffer_load_dword v5, off, s[0:3], s32 offset:48
 ; GFX7-NEXT:    s_waitcnt vmcnt(5)
 ; GFX7-NEXT:    v_mul_f32_e32 v0, 1.0, v0
 ; GFX7-NEXT:    s_waitcnt vmcnt(4)
@@ -37661,65 +37661,65 @@ define <16 x bfloat> @v_vselect_v16bf16(<16 x i1> %cond, <16 x bfloat> %a, <16 x
 ; GFX7-NEXT:    v_cndmask_b32_e64 v15, v1, v0, s[34:35]
 ; GFX7-NEXT:    buffer_load_dword v0, off, s[0:3], s32 offset:44
 ; GFX7-NEXT:    v_mul_f32_e32 v1, 1.0, v30
-; GFX7-NEXT:    s_waitcnt vmcnt(4)
-; GFX7-NEXT:    v_mul_f32_e32 v2, 1.0, v2
-; GFX7-NEXT:    v_cndmask_b32_e64 v14, v2, v1, s[30:31]
-; GFX7-NEXT:    buffer_load_dword v1, off, s[0:3], s32 offset:40
-; GFX7-NEXT:    v_mul_f32_e32 v2, 1.0, v29
-; GFX7-NEXT:    s_waitcnt vmcnt(4)
-; GFX7-NEXT:    v_mul_f32_e32 v3, 1.0, v3
-; GFX7-NEXT:    v_cndmask_b32_e64 v13, v3, v2, s[28:29]
-; GFX7-NEXT:    buffer_load_dword v2, off, s[0:3], s32 offset:36
-; GFX7-NEXT:    v_mul_f32_e32 v3, 1.0, v28
-; GFX7-NEXT:    s_waitcnt vmcnt(4)
-; GFX7-NEXT:    v_mul_f32_e32 v4, 1.0, v4
-; GFX7-NEXT:    v_cndmask_b32_e64 v12, v4, v3, s[26:27]
-; GFX7-NEXT:    buffer_load_dword v3, off, s[0:3], s32 offset:32
-; GFX7-NEXT:    v_mul_f32_e32 v4, 1.0, v27
-; GFX7-NEXT:    s_waitcnt vmcnt(4)
-; GFX7-NEXT:    v_mul_f32_e32 v5, 1.0, v5
-; GFX7-NEXT:    v_cndmask_b32_e64 v11, v5, v4, s[24:25]
-; GFX7-NEXT:    buffer_load_dword v4, off, s[0:3], s32 offset:28
-; GFX7-NEXT:    v_mul_f32_e32 v5, 1.0, v26
-; GFX7-NEXT:    v_and_b32_e32 v11, 0xffff0000, v11
-; GFX7-NEXT:    v_and_b32_e32 v12, 0xffff0000, v12
-; GFX7-NEXT:    v_and_b32_e32 v13, 0xffff0000, v13
-; GFX7-NEXT:    v_and_b32_e32 v14, 0xffff0000, v14
 ; GFX7-NEXT:    v_and_b32_e32 v15, 0xffff0000, v15
 ; GFX7-NEXT:    v_readlane_b32 s35, v31, 3
 ; GFX7-NEXT:    v_readlane_b32 s34, v31, 2
+; GFX7-NEXT:    s_waitcnt vmcnt(4)
+; GFX7-NEXT:    v_mul_f32_e32 v2, 1.0, v2
+; GFX7-NEXT:    s_waitcnt vmcnt(3)
+; GFX7-NEXT:    v_mul_f32_e32 v3, 1.0, v3
+; GFX7-NEXT:    s_waitcnt vmcnt(2)
+; GFX7-NEXT:    v_mul_f32_e32 v4, 1.0, v4
+; GFX7-NEXT:    s_waitcnt vmcnt(1)
+; GFX7-NEXT:    v_mul_f32_e32 v5, 1.0, v5
+; GFX7-NEXT:    v_cndmask_b32_e64 v14, v2, v1, s[30:31]
+; GFX7-NEXT:    v_mul_f32_e32 v2, 1.0, v29
 ; GFX7-NEXT:    v_readlane_b32 s31, v31, 1
 ; GFX7-NEXT:    v_readlane_b32 s30, v31, 0
+; GFX7-NEXT:    v_cndmask_b32_e64 v13, v3, v2, s[28:29]
+; GFX7-NEXT:    v_mul_f32_e32 v3, 1.0, v28
+; GFX7-NEXT:    v_and_b32_e32 v14, 0xffff0000, v14
+; GFX7-NEXT:    v_cndmask_b32_e64 v12, v4, v3, s[26:27]
+; GFX7-NEXT:    v_mul_f32_e32 v4, 1.0, v27
+; GFX7-NEXT:    v_and_b32_e32 v13, 0xffff0000, v13
+; GFX7-NEXT:    v_cndmask_b32_e64 v11, v5, v4, s[24:25]
+; GFX7-NEXT:    v_mul_f32_e32 v5, 1.0, v26
+; GFX7-NEXT:    v_and_b32_e32 v12, 0xffff0000, v12
+; GFX7-NEXT:    buffer_load_dword v1, off, s[0:3], s32 offset:40
+; GFX7-NEXT:    buffer_load_dword v2, off, s[0:3], s32 offset:36
+; GFX7-NEXT:    buffer_load_dword v3, off, s[0:3], s32 offset:32
+; GFX7-NEXT:    buffer_load_dword v4, off, s[0:3], s32 offset:28
+; GFX7-NEXT:    v_and_b32_e32 v11, 0xffff0000, v11
 ; GFX7-NEXT:    s_waitcnt vmcnt(4)
 ; GFX7-NEXT:    v_mul_f32_e32 v0, 1.0, v0
 ; GFX7-NEXT:    v_cndmask_b32_e64 v10, v0, v5, s[22:23]
 ; GFX7-NEXT:    buffer_load_dword v0, off, s[0:3], s32 offset:24
 ; GFX7-NEXT:    v_mul_f32_e32 v5, 1.0, v25
+; GFX7-NEXT:    v_and_b32_e32 v10, 0xffff0000, v10
 ; GFX7-NEXT:    s_waitcnt vmcnt(4)
 ; GFX7-NEXT:    v_mul_f32_e32 v1, 1.0, v1
+; GFX7-NEXT:    s_waitcnt vmcnt(3)
+; GFX7-NEXT:    v_mul_f32_e32 v2, 1.0, v2
+; GFX7-NEXT:    s_waitcnt vmcnt(2)
+; GFX7-NEXT:    v_mul_f32_e32 v3, 1.0, v3
+; GFX7-NEXT:    s_waitcnt vmcnt(1)
+; GFX7-NEXT:    v_mul_f32_e32 v4, 1.0, v4
 ; GFX7-NEXT:    v_cndmask_b32_e64 v9, v1, v5, s[20:21]
 ; GFX7-NEXT:    v_mul_f32_e32 v5, 1.0, v24
 ; GFX7-NEXT:    buffer_load_dword v1, off, s[0:3], s32 offset:4
-; GFX7-NEXT:    s_waitcnt vmcnt(4)
-; GFX7-NEXT:    v_mul_f32_e32 v2, 1.0, v2
 ; GFX7-NEXT:    v_cndmask_b32_e64 v8, v2, v5, s[18:19]
 ; GFX7-NEXT:    buffer_load_dword v2, off, s[0:3], s32 offset:8
 ; GFX7-NEXT:    v_mul_f32_e32 v5, 1.0, v23
-; GFX7-NEXT:    s_waitcnt vmcnt(4)
-; GFX7-NEXT:    v_mul_f32_e32 v3, 1.0, v3
+; GFX7-NEXT:    v_and_b32_e32 v9, 0xffff0000, v9
 ; GFX7-NEXT:    v_cndmask_b32_e64 v7, v3, v5, s[16:17]
 ; GFX7-NEXT:    buffer_load_dword v3, off, s[0:3], s32 offset:12
 ; GFX7-NEXT:    v_mul_f32_e32 v5, 1.0, v22
-; GFX7-NEXT:    s_waitcnt vmcnt(4)
-; GFX7-NEXT:    v_mul_f32_e32 v4, 1.0, v4
+; GFX7-NEXT:    v_and_b32_e32 v8, 0xffff0000, v8
 ; GFX7-NEXT:    v_cndmask_b32_e64 v6, v4, v5, s[14:15]
 ; GFX7-NEXT:    buffer_load_dword v4, off, s[0:3], s32 offset:16
 ; GFX7-NEXT:    v_mul_f32_e32 v5, 1.0, v21
-; GFX7-NEXT:    v_and_b32_e32 v6, 0xffff0000, v6
 ; GFX7-NEXT:    v_and_b32_e32 v7, 0xffff0000, v7
-; GFX7-NEXT:    v_and_b32_e32 v8, 0xffff0000, v8
-; GFX7-NEXT:    v_and_b32_e32 v9, 0xffff0000, v9
-; GFX7-NEXT:    v_and_b32_e32 v10, 0xffff0000, v10
+; GFX7-NEXT:    v_and_b32_e32 v6, 0xffff0000, v6
 ; GFX7-NEXT:    s_waitcnt vmcnt(4)
 ; GFX7-NEXT:    v_mul_f32_e32 v0, 1.0, v0
 ; GFX7-NEXT:    v_cndmask_b32_e64 v5, v0, v5, s[12:13]
@@ -39446,6 +39446,7 @@ define <32 x bfloat> @v_vselect_v32bf16(<32 x i1> %cond, <32 x bfloat> %a, <32 x
 ; GFX10-NEXT:    v_cmp_eq_u32_e64 s5, 1, v28
 ; GFX10-NEXT:    buffer_load_dword v28, off, s[0:3], s32 offset:88
 ; GFX10-NEXT:    v_cmp_eq_u32_e64 s6, 1, v26
+; GFX10-NEXT:    buffer_load_dword v26, off, s[0:3], s32 offset:24
 ; GFX10-NEXT:    v_cmp_eq_u32_e64 s7, 1, v24
 ; GFX10-NEXT:    buffer_load_dword v24, off, s[0:3], s32 offset:84
 ; GFX10-NEXT:    v_cmp_eq_u32_e64 s8, 1, v22
@@ -39457,9 +39458,7 @@ define <32 x bfloat> @v_vselect_v32bf16(<32 x i1> %cond, <32 x bfloat> %a, <32 x
 ; GFX10-NEXT:    v_cmp_eq_u32_e64 s11, 1, v16
 ; GFX10-NEXT:    buffer_load_dword v16, off, s[0:3], s32 offset:8
 ; GFX10-NEXT:    v_cmp_eq_u32_e64 s12, 1, v14
-; GFX10-NEXT:    s_clause 0x1
 ; GFX10-NEXT:    buffer_load_dword v14, off, s[0:3], s32 offset:68
-; GFX10-NEXT:    buffer_load_dword v26, off, s[0:3], s32 offset:24
 ; GFX10-NEXT:    v_cmp_eq_u32_e64 s13, 1, v12
 ; GFX10-NEXT:    buffer_load_dword v12, off, s[0:3], s32 offset:4
 ; GFX10-NEXT:    v_writelane_b32 v40, s30, 0
@@ -39549,22 +39548,23 @@ define <32 x bfloat> @v_vselect_v32bf16(<32 x i1> %cond, <32 x bfloat> %a, <32 x
 ; GFX10-NEXT:    v_cndmask_b32_e64 v38, v29, v68, s13
 ; GFX10-NEXT:    v_lshrrev_b32_e32 v39, 16, v68
 ; GFX10-NEXT:    v_lshrrev_b32_e32 v29, 16, v29
-; GFX10-NEXT:    s_waitcnt vmcnt(6)
-; GFX10-NEXT:    v_cndmask_b32_e64 v49, v24, v22, s15
-; GFX10-NEXT:    v_lshrrev_b32_e32 v22, 16, v22
-; GFX10-NEXT:    v_lshrrev_b32_e32 v24, 16, v24
-; GFX10-NEXT:    s_waitcnt vmcnt(5)
-; GFX10-NEXT:    v_cndmask_b32_e64 v50, v67, v20, s16
-; GFX10-NEXT:    v_lshrrev_b32_e32 v20, 16, v20
-; GFX10-NEXT:    v_lshrrev_b32_e32 v51, 16, v67
-; GFX10-NEXT:    s_waitcnt vmcnt(4)
-; GFX10-NEXT:    v_cndmask_b32_e64 v52, v66, v18, s17
-; GFX10-NEXT:    v_lshrrev_b32_e32 v18, 16, v18
-; GFX10-NEXT:    s_waitcnt vmcnt(1)
+; GFX10-NEXT:    s_waitcnt vmcnt(7)
 ; GFX10-NEXT:    v_cndmask_b32_e64 v48, v28, v26, s14
 ; GFX10-NEXT:    v_lshrrev_b32_e32 v26, 16, v26
 ; GFX10-NEXT:    v_lshrrev_b32_e32 v28, 16, v28
+; GFX10-NEXT:    s_waitcnt vmcnt(5)
+; GFX10-NEXT:    v_cndmask_b32_e64 v49, v24, v22, s15
+; GFX10-NEXT:    v_lshrrev_b32_e32 v22, 16, v22
+; GFX10-NEXT:    v_lshrrev_b32_e32 v24, 16, v24
+; GFX10-NEXT:    s_waitcnt vmcnt(4)
+; GFX10-NEXT:    v_cndmask_b32_e64 v50, v67, v20, s16
+; GFX10-NEXT:    v_lshrrev_b32_e32 v20, 16, v20
+; GFX10-NEXT:    v_lshrrev_b32_e32 v51, 16, v67
+; GFX10-NEXT:    s_waitcnt vmcnt(3)
+; GFX10-NEXT:    v_cndmask_b32_e64 v52, v66, v18, s17
+; GFX10-NEXT:    v_lshrrev_b32_e32 v18, 16, v18
 ; GFX10-NEXT:    v_lshrrev_b32_e32 v53, 16, v66
+; GFX10-NEXT:    s_waitcnt vmcnt(2)
 ; GFX10-NEXT:    v_cndmask_b32_e64 v54, v65, v16, s18
 ; GFX10-NEXT:    v_lshrrev_b32_e32 v16, 16, v16
 ; GFX10-NEXT:    v_lshrrev_b32_e32 v55, 16, v65

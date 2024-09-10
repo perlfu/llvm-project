@@ -594,12 +594,23 @@ define amdgpu_kernel void @memcpy_p0_p5_minsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    v_mov_b32_e32 v1, s1
 ; CHECK-NEXT:    s_waitcnt vmcnt(17)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:15
+; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:29
 ; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v4 offset:14
+; CHECK-NEXT:    buffer_load_ubyte v4, v2, s[16:19], 0 offen offset:28
+; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:13
+; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:27
+; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v6 offset:12
+; CHECK-NEXT:    buffer_load_ubyte v6, v2, s[16:19], 0 offen offset:26
+; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v7 offset:11
+; CHECK-NEXT:    buffer_load_ubyte v7, v2, s[16:19], 0 offen offset:25
+; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v8 offset:10
+; CHECK-NEXT:    buffer_load_ubyte v8, v2, s[16:19], 0 offen offset:24
+; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v9 offset:9
 ; CHECK-NEXT:    buffer_load_ubyte v9, v2, s[16:19], 0 offen offset:23
 ; CHECK-NEXT:    s_nop 0
@@ -621,19 +632,15 @@ define amdgpu_kernel void @memcpy_p0_p5_minsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:3
 ; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:17
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:1
-; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:47
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v18
-; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:31
 ; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:2
 ; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:16
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    buffer_load_ubyte v4, v2, s[16:19], 0 offen offset:28
-; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:27
-; CHECK-NEXT:    buffer_load_ubyte v6, v2, s[16:19], 0 offen offset:26
-; CHECK-NEXT:    buffer_load_ubyte v7, v2, s[16:19], 0 offen offset:25
-; CHECK-NEXT:    buffer_load_ubyte v8, v2, s[16:19], 0 offen offset:24
+; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:1
+; CHECK-NEXT:    flat_store_byte v[0:1], v18
+; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:31
+; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:47
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:46
 ; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:45
 ; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v9 offset:23
@@ -654,17 +661,17 @@ define amdgpu_kernel void @memcpy_p0_p5_minsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:18
 ; CHECK-NEXT:    buffer_load_ubyte v14, v2, s[16:19], 0 offen offset:32
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:29
-; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:30
 ; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[16:19], 0 offen offset:44
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:17
-; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:63
+; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:29
+; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:43
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:16
 ; CHECK-NEXT:    flat_store_byte v[0:1], v4 offset:28
 ; CHECK-NEXT:    buffer_load_ubyte v4, v2, s[16:19], 0 offen offset:42
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:27
+; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:41
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v6 offset:26
 ; CHECK-NEXT:    buffer_load_ubyte v6, v2, s[16:19], 0 offen offset:40
@@ -675,11 +682,11 @@ define amdgpu_kernel void @memcpy_p0_p5_minsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v8 offset:24
 ; CHECK-NEXT:    buffer_load_ubyte v8, v2, s[16:19], 0 offen offset:38
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:27
-; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:41
+; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:17
+; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:16
+; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:63
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:45
-; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:59
+; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:62
 ; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v9 offset:37
 ; CHECK-NEXT:    buffer_load_ubyte v9, v2, s[16:19], 0 offen offset:51
@@ -693,23 +700,26 @@ define amdgpu_kernel void @memcpy_p0_p5_minsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v12 offset:34
 ; CHECK-NEXT:    buffer_load_ubyte v12, v2, s[16:19], 0 offen offset:48
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:46
-; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:47
 ; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:61
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:29
-; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:43
+; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:46
+; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:60
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:45
+; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:59
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:44
 ; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[16:19], 0 offen offset:58
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v13 offset:33
-; CHECK-NEXT:    buffer_load_ubyte v13, v2, s[16:19], 0 offen offset:79
+; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:43
+; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:57
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:32
 ; CHECK-NEXT:    flat_store_byte v[0:1], v4 offset:42
 ; CHECK-NEXT:    buffer_load_ubyte v4, v2, s[16:19], 0 offen offset:56
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:41
+; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:55
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v6 offset:40
 ; CHECK-NEXT:    buffer_load_ubyte v6, v2, s[16:19], 0 offen offset:54
@@ -720,11 +730,11 @@ define amdgpu_kernel void @memcpy_p0_p5_minsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v8 offset:38
 ; CHECK-NEXT:    buffer_load_ubyte v8, v2, s[16:19], 0 offen offset:52
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:41
-; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:55
+; CHECK-NEXT:    flat_store_byte v[0:1], v13 offset:33
+; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:32
+; CHECK-NEXT:    buffer_load_ubyte v13, v2, s[16:19], 0 offen offset:79
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:59
-; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:73
+; CHECK-NEXT:    buffer_load_ubyte v14, v2, s[16:19], 0 offen offset:78
 ; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v9 offset:51
 ; CHECK-NEXT:    buffer_load_ubyte v9, v2, s[16:19], 0 offen offset:65
@@ -732,29 +742,32 @@ define amdgpu_kernel void @memcpy_p0_p5_minsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v10 offset:50
 ; CHECK-NEXT:    buffer_load_ubyte v10, v2, s[16:19], 0 offen offset:64
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:62
-; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:63
 ; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:77
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:46
-; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:60
+; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:62
+; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:76
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:61
 ; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:75
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:43
-; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:57
+; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:60
+; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:74
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:59
+; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:73
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:58
 ; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[16:19], 0 offen offset:72
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v11 offset:49
-; CHECK-NEXT:    buffer_load_ubyte v11, v2, s[16:19], 0 offen offset:95
+; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:57
+; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:71
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v12 offset:48
 ; CHECK-NEXT:    flat_store_byte v[0:1], v4 offset:56
 ; CHECK-NEXT:    buffer_load_ubyte v4, v2, s[16:19], 0 offen offset:70
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:55
+; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:69
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v6 offset:54
 ; CHECK-NEXT:    buffer_load_ubyte v6, v2, s[16:19], 0 offen offset:68
@@ -765,11 +778,11 @@ define amdgpu_kernel void @memcpy_p0_p5_minsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v8 offset:52
 ; CHECK-NEXT:    buffer_load_ubyte v8, v2, s[16:19], 0 offen offset:66
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:55
-; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:69
+; CHECK-NEXT:    flat_store_byte v[0:1], v11 offset:49
+; CHECK-NEXT:    flat_store_byte v[0:1], v12 offset:48
+; CHECK-NEXT:    buffer_load_ubyte v11, v2, s[16:19], 0 offen offset:95
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:73
-; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:87
+; CHECK-NEXT:    buffer_load_ubyte v12, v2, s[16:19], 0 offen offset:94
 ; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v9 offset:65
 ; CHECK-NEXT:    buffer_load_ubyte v9, v2, s[16:19], 0 offen offset:111
@@ -777,26 +790,17 @@ define amdgpu_kernel void @memcpy_p0_p5_minsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v10 offset:64
 ; CHECK-NEXT:    buffer_load_ubyte v10, v2, s[16:19], 0 offen offset:110
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:62
-; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:76
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:77
-; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:91
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:60
-; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:74
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:75
-; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:89
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:57
-; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:71
-; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:72
 ; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[16:19], 0 offen offset:86
 ; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:71
+; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:85
+; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v4 offset:70
 ; CHECK-NEXT:    buffer_load_ubyte v4, v2, s[16:19], 0 offen offset:84
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:69
+; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:82
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v6 offset:68
 ; CHECK-NEXT:    buffer_load_ubyte v6, v2, s[16:19], 0 offen offset:83
@@ -807,60 +811,59 @@ define amdgpu_kernel void @memcpy_p0_p5_minsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v8 offset:66
 ; CHECK-NEXT:    buffer_load_ubyte v8, v2, s[16:19], 0 offen offset:80
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    buffer_load_ubyte v14, v2, s[16:19], 0 offen offset:78
-; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v13 offset:79
 ; CHECK-NEXT:    buffer_load_ubyte v13, v2, s[16:19], 0 offen offset:93
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:69
-; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:82
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:87
-; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:101
-; CHECK-NEXT:    s_waitcnt vmcnt(0)
-; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:76
-; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:90
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:91
-; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:105
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:74
-; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:88
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:89
-; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:103
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:71
-; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:85
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:86
-; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[16:19], 0 offen offset:100
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:78
 ; CHECK-NEXT:    buffer_load_ubyte v14, v2, s[16:19], 0 offen offset:92
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v13 offset:93
-; CHECK-NEXT:    buffer_load_ubyte v13, v2, s[16:19], 0 offen offset:107
-; CHECK-NEXT:    s_waitcnt vmcnt(0)
-; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:90
-; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:104
+; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:77
+; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:91
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:88
-; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:102
+; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:76
+; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:90
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:75
+; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:89
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:74
+; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:88
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:73
+; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:87
+; CHECK-NEXT:    s_waitcnt vmcnt(0)
+; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:86
+; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[16:19], 0 offen offset:100
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:85
 ; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:99
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    buffer_load_ubyte v12, v2, s[16:19], 0 offen offset:94
-; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v11 offset:95
 ; CHECK-NEXT:    buffer_load_ubyte v11, v2, s[16:19], 0 offen offset:109
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:92
-; CHECK-NEXT:    buffer_load_ubyte v14, v2, s[16:19], 0 offen offset:106
-; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v12 offset:94
 ; CHECK-NEXT:    buffer_load_ubyte v12, v2, s[16:19], 0 offen offset:108
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v13 offset:93
+; CHECK-NEXT:    buffer_load_ubyte v13, v2, s[16:19], 0 offen offset:107
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:92
+; CHECK-NEXT:    buffer_load_ubyte v14, v2, s[16:19], 0 offen offset:106
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:91
+; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:105
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:90
+; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:104
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:89
+; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:103
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:88
+; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:102
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:87
+; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:101
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v4 offset:84
 ; CHECK-NEXT:    flat_store_byte v[0:1], v6 offset:83
@@ -875,33 +878,41 @@ define amdgpu_kernel void @memcpy_p0_p5_minsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v8 offset:80
 ; CHECK-NEXT:    flat_store_byte v[0:1], v9 offset:111
 ; CHECK-NEXT:    flat_store_byte v[0:1], v10 offset:110
-; CHECK-NEXT:    flat_store_byte v[0:1], v11 offset:109
-; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:99
 ; CHECK-NEXT:    buffer_load_ubyte v8, v2, s[16:19], 0 offen offset:121
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    buffer_load_ubyte v9, v2, s[16:19], 0 offen offset:122
 ; CHECK-NEXT:    buffer_load_ubyte v10, v2, s[16:19], 0 offen offset:123
+; CHECK-NEXT:    s_waitcnt vmcnt(0)
+; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:100
+; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[16:19], 0 offen offset:115
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:99
+; CHECK-NEXT:    flat_store_byte v[0:1], v11 offset:109
 ; CHECK-NEXT:    buffer_load_ubyte v11, v2, s[16:19], 0 offen offset:124
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v13 offset:107
-; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:105
-; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:104
-; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:103
-; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:106
-; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:102
-; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:101
-; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:100
-; CHECK-NEXT:    buffer_load_ubyte v13, v2, s[16:19], 0 offen offset:126
-; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:116
-; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:117
-; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:118
-; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:119
-; CHECK-NEXT:    buffer_load_ubyte v14, v2, s[16:19], 0 offen offset:127
-; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:114
-; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[16:19], 0 offen offset:115
-; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v12 offset:108
 ; CHECK-NEXT:    buffer_load_ubyte v12, v2, s[16:19], 0 offen offset:125
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v13 offset:107
+; CHECK-NEXT:    buffer_load_ubyte v13, v2, s[16:19], 0 offen offset:126
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:106
+; CHECK-NEXT:    buffer_load_ubyte v14, v2, s[16:19], 0 offen offset:127
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:105
+; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:116
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:104
+; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:117
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:103
+; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:118
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:102
+; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:119
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:101
+; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:114
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:113
 ; CHECK-NEXT:    buffer_load_ubyte v21, v2, s[16:19], 0 offen offset:112
@@ -909,9 +920,9 @@ define amdgpu_kernel void @memcpy_p0_p5_minsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v6 offset:98
 ; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:97
 ; CHECK-NEXT:    flat_store_byte v[0:1], v4 offset:96
+; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:127
 ; CHECK-NEXT:    flat_store_byte v[0:1], v13 offset:126
-; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v12 offset:125
 ; CHECK-NEXT:    flat_store_byte v[0:1], v11 offset:124
 ; CHECK-NEXT:    flat_store_byte v[0:1], v10 offset:123
@@ -1840,12 +1851,23 @@ define amdgpu_kernel void @memcpy_p0_p5_optsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    v_mov_b32_e32 v1, s1
 ; CHECK-NEXT:    s_waitcnt vmcnt(17)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:15
+; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:29
 ; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v4 offset:14
+; CHECK-NEXT:    buffer_load_ubyte v4, v2, s[16:19], 0 offen offset:28
+; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:13
+; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:27
+; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v6 offset:12
+; CHECK-NEXT:    buffer_load_ubyte v6, v2, s[16:19], 0 offen offset:26
+; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v7 offset:11
+; CHECK-NEXT:    buffer_load_ubyte v7, v2, s[16:19], 0 offen offset:25
+; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v8 offset:10
+; CHECK-NEXT:    buffer_load_ubyte v8, v2, s[16:19], 0 offen offset:24
+; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v9 offset:9
 ; CHECK-NEXT:    buffer_load_ubyte v9, v2, s[16:19], 0 offen offset:23
 ; CHECK-NEXT:    s_nop 0
@@ -1867,19 +1889,15 @@ define amdgpu_kernel void @memcpy_p0_p5_optsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:3
 ; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:17
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:1
-; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:47
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v18
-; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:31
 ; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:2
 ; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:16
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    buffer_load_ubyte v4, v2, s[16:19], 0 offen offset:28
-; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:27
-; CHECK-NEXT:    buffer_load_ubyte v6, v2, s[16:19], 0 offen offset:26
-; CHECK-NEXT:    buffer_load_ubyte v7, v2, s[16:19], 0 offen offset:25
-; CHECK-NEXT:    buffer_load_ubyte v8, v2, s[16:19], 0 offen offset:24
+; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:1
+; CHECK-NEXT:    flat_store_byte v[0:1], v18
+; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:31
+; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:47
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:46
 ; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:45
 ; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v9 offset:23
@@ -1900,17 +1918,17 @@ define amdgpu_kernel void @memcpy_p0_p5_optsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:18
 ; CHECK-NEXT:    buffer_load_ubyte v14, v2, s[16:19], 0 offen offset:32
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:29
-; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:30
 ; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[16:19], 0 offen offset:44
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:17
-; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:63
+; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:29
+; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:43
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:16
 ; CHECK-NEXT:    flat_store_byte v[0:1], v4 offset:28
 ; CHECK-NEXT:    buffer_load_ubyte v4, v2, s[16:19], 0 offen offset:42
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:27
+; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:41
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v6 offset:26
 ; CHECK-NEXT:    buffer_load_ubyte v6, v2, s[16:19], 0 offen offset:40
@@ -1921,11 +1939,11 @@ define amdgpu_kernel void @memcpy_p0_p5_optsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v8 offset:24
 ; CHECK-NEXT:    buffer_load_ubyte v8, v2, s[16:19], 0 offen offset:38
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:27
-; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:41
+; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:17
+; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:16
+; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:63
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:45
-; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:59
+; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:62
 ; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v9 offset:37
 ; CHECK-NEXT:    buffer_load_ubyte v9, v2, s[16:19], 0 offen offset:51
@@ -1939,23 +1957,26 @@ define amdgpu_kernel void @memcpy_p0_p5_optsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v12 offset:34
 ; CHECK-NEXT:    buffer_load_ubyte v12, v2, s[16:19], 0 offen offset:48
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:46
-; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:47
 ; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:61
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:29
-; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:43
+; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:46
+; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:60
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:45
+; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:59
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:44
 ; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[16:19], 0 offen offset:58
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v13 offset:33
-; CHECK-NEXT:    buffer_load_ubyte v13, v2, s[16:19], 0 offen offset:79
+; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:43
+; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:57
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:32
 ; CHECK-NEXT:    flat_store_byte v[0:1], v4 offset:42
 ; CHECK-NEXT:    buffer_load_ubyte v4, v2, s[16:19], 0 offen offset:56
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:41
+; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:55
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v6 offset:40
 ; CHECK-NEXT:    buffer_load_ubyte v6, v2, s[16:19], 0 offen offset:54
@@ -1966,11 +1987,11 @@ define amdgpu_kernel void @memcpy_p0_p5_optsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v8 offset:38
 ; CHECK-NEXT:    buffer_load_ubyte v8, v2, s[16:19], 0 offen offset:52
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:41
-; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:55
+; CHECK-NEXT:    flat_store_byte v[0:1], v13 offset:33
+; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:32
+; CHECK-NEXT:    buffer_load_ubyte v13, v2, s[16:19], 0 offen offset:79
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:59
-; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:73
+; CHECK-NEXT:    buffer_load_ubyte v14, v2, s[16:19], 0 offen offset:78
 ; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v9 offset:51
 ; CHECK-NEXT:    buffer_load_ubyte v9, v2, s[16:19], 0 offen offset:65
@@ -1978,29 +1999,32 @@ define amdgpu_kernel void @memcpy_p0_p5_optsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v10 offset:50
 ; CHECK-NEXT:    buffer_load_ubyte v10, v2, s[16:19], 0 offen offset:64
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:62
-; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:63
 ; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:77
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:46
-; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:60
+; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:62
+; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:76
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:61
 ; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:75
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:43
-; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:57
+; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:60
+; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:74
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:59
+; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:73
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:58
 ; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[16:19], 0 offen offset:72
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v11 offset:49
-; CHECK-NEXT:    buffer_load_ubyte v11, v2, s[16:19], 0 offen offset:95
+; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:57
+; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:71
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v12 offset:48
 ; CHECK-NEXT:    flat_store_byte v[0:1], v4 offset:56
 ; CHECK-NEXT:    buffer_load_ubyte v4, v2, s[16:19], 0 offen offset:70
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:55
+; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:69
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v6 offset:54
 ; CHECK-NEXT:    buffer_load_ubyte v6, v2, s[16:19], 0 offen offset:68
@@ -2011,11 +2035,11 @@ define amdgpu_kernel void @memcpy_p0_p5_optsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v8 offset:52
 ; CHECK-NEXT:    buffer_load_ubyte v8, v2, s[16:19], 0 offen offset:66
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:55
-; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:69
+; CHECK-NEXT:    flat_store_byte v[0:1], v11 offset:49
+; CHECK-NEXT:    flat_store_byte v[0:1], v12 offset:48
+; CHECK-NEXT:    buffer_load_ubyte v11, v2, s[16:19], 0 offen offset:95
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:73
-; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:87
+; CHECK-NEXT:    buffer_load_ubyte v12, v2, s[16:19], 0 offen offset:94
 ; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v9 offset:65
 ; CHECK-NEXT:    buffer_load_ubyte v9, v2, s[16:19], 0 offen offset:111
@@ -2023,26 +2047,17 @@ define amdgpu_kernel void @memcpy_p0_p5_optsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v10 offset:64
 ; CHECK-NEXT:    buffer_load_ubyte v10, v2, s[16:19], 0 offen offset:110
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:62
-; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:76
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:77
-; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:91
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:60
-; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:74
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:75
-; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:89
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:57
-; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:71
-; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:72
 ; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[16:19], 0 offen offset:86
 ; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:71
+; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:85
+; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v4 offset:70
 ; CHECK-NEXT:    buffer_load_ubyte v4, v2, s[16:19], 0 offen offset:84
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:69
+; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:82
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v6 offset:68
 ; CHECK-NEXT:    buffer_load_ubyte v6, v2, s[16:19], 0 offen offset:83
@@ -2053,60 +2068,59 @@ define amdgpu_kernel void @memcpy_p0_p5_optsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v8 offset:66
 ; CHECK-NEXT:    buffer_load_ubyte v8, v2, s[16:19], 0 offen offset:80
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    buffer_load_ubyte v14, v2, s[16:19], 0 offen offset:78
-; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v13 offset:79
 ; CHECK-NEXT:    buffer_load_ubyte v13, v2, s[16:19], 0 offen offset:93
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:69
-; CHECK-NEXT:    buffer_load_ubyte v5, v2, s[16:19], 0 offen offset:82
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:87
-; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:101
-; CHECK-NEXT:    s_waitcnt vmcnt(0)
-; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:76
-; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:90
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:91
-; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:105
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:74
-; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:88
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:89
-; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:103
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:71
-; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:85
-; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:86
-; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[16:19], 0 offen offset:100
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:78
 ; CHECK-NEXT:    buffer_load_ubyte v14, v2, s[16:19], 0 offen offset:92
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v13 offset:93
-; CHECK-NEXT:    buffer_load_ubyte v13, v2, s[16:19], 0 offen offset:107
-; CHECK-NEXT:    s_waitcnt vmcnt(0)
-; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:90
-; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:104
+; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:77
+; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:91
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:88
-; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:102
+; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:76
+; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:90
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:75
+; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:89
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:74
+; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:88
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:73
+; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:87
+; CHECK-NEXT:    s_waitcnt vmcnt(0)
+; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:86
+; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[16:19], 0 offen offset:100
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:85
 ; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:99
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    buffer_load_ubyte v12, v2, s[16:19], 0 offen offset:94
-; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v11 offset:95
 ; CHECK-NEXT:    buffer_load_ubyte v11, v2, s[16:19], 0 offen offset:109
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:92
-; CHECK-NEXT:    buffer_load_ubyte v14, v2, s[16:19], 0 offen offset:106
-; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v12 offset:94
 ; CHECK-NEXT:    buffer_load_ubyte v12, v2, s[16:19], 0 offen offset:108
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v13 offset:93
+; CHECK-NEXT:    buffer_load_ubyte v13, v2, s[16:19], 0 offen offset:107
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:92
+; CHECK-NEXT:    buffer_load_ubyte v14, v2, s[16:19], 0 offen offset:106
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:91
+; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:105
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:90
+; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:104
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:89
+; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:103
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:88
+; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:102
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:87
+; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:101
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    flat_store_byte v[0:1], v4 offset:84
 ; CHECK-NEXT:    flat_store_byte v[0:1], v6 offset:83
@@ -2121,33 +2135,41 @@ define amdgpu_kernel void @memcpy_p0_p5_optsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v8 offset:80
 ; CHECK-NEXT:    flat_store_byte v[0:1], v9 offset:111
 ; CHECK-NEXT:    flat_store_byte v[0:1], v10 offset:110
-; CHECK-NEXT:    flat_store_byte v[0:1], v11 offset:109
-; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:99
 ; CHECK-NEXT:    buffer_load_ubyte v8, v2, s[16:19], 0 offen offset:121
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    buffer_load_ubyte v9, v2, s[16:19], 0 offen offset:122
 ; CHECK-NEXT:    buffer_load_ubyte v10, v2, s[16:19], 0 offen offset:123
+; CHECK-NEXT:    s_waitcnt vmcnt(0)
+; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:100
+; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[16:19], 0 offen offset:115
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v3 offset:99
+; CHECK-NEXT:    flat_store_byte v[0:1], v11 offset:109
 ; CHECK-NEXT:    buffer_load_ubyte v11, v2, s[16:19], 0 offen offset:124
 ; CHECK-NEXT:    s_nop 0
-; CHECK-NEXT:    flat_store_byte v[0:1], v13 offset:107
-; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:105
-; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:104
-; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:103
-; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:106
-; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:102
-; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:101
-; CHECK-NEXT:    flat_store_byte v[0:1], v20 offset:100
-; CHECK-NEXT:    buffer_load_ubyte v13, v2, s[16:19], 0 offen offset:126
-; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:116
-; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:117
-; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:118
-; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:119
-; CHECK-NEXT:    buffer_load_ubyte v14, v2, s[16:19], 0 offen offset:127
-; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:114
-; CHECK-NEXT:    buffer_load_ubyte v20, v2, s[16:19], 0 offen offset:115
-; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v12 offset:108
 ; CHECK-NEXT:    buffer_load_ubyte v12, v2, s[16:19], 0 offen offset:125
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v13 offset:107
+; CHECK-NEXT:    buffer_load_ubyte v13, v2, s[16:19], 0 offen offset:126
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:106
+; CHECK-NEXT:    buffer_load_ubyte v14, v2, s[16:19], 0 offen offset:127
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v15 offset:105
+; CHECK-NEXT:    buffer_load_ubyte v15, v2, s[16:19], 0 offen offset:116
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v16 offset:104
+; CHECK-NEXT:    buffer_load_ubyte v16, v2, s[16:19], 0 offen offset:117
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v17 offset:103
+; CHECK-NEXT:    buffer_load_ubyte v17, v2, s[16:19], 0 offen offset:118
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v18 offset:102
+; CHECK-NEXT:    buffer_load_ubyte v18, v2, s[16:19], 0 offen offset:119
+; CHECK-NEXT:    s_nop 0
+; CHECK-NEXT:    flat_store_byte v[0:1], v19 offset:101
+; CHECK-NEXT:    buffer_load_ubyte v19, v2, s[16:19], 0 offen offset:114
 ; CHECK-NEXT:    s_nop 0
 ; CHECK-NEXT:    buffer_load_ubyte v3, v2, s[16:19], 0 offen offset:113
 ; CHECK-NEXT:    buffer_load_ubyte v21, v2, s[16:19], 0 offen offset:112
@@ -2155,9 +2177,9 @@ define amdgpu_kernel void @memcpy_p0_p5_optsize(ptr %generic, ptr addrspace(5) %
 ; CHECK-NEXT:    flat_store_byte v[0:1], v6 offset:98
 ; CHECK-NEXT:    flat_store_byte v[0:1], v5 offset:97
 ; CHECK-NEXT:    flat_store_byte v[0:1], v4 offset:96
+; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v14 offset:127
 ; CHECK-NEXT:    flat_store_byte v[0:1], v13 offset:126
-; CHECK-NEXT:    s_waitcnt vmcnt(0)
 ; CHECK-NEXT:    flat_store_byte v[0:1], v12 offset:125
 ; CHECK-NEXT:    flat_store_byte v[0:1], v11 offset:124
 ; CHECK-NEXT:    flat_store_byte v[0:1], v10 offset:123
