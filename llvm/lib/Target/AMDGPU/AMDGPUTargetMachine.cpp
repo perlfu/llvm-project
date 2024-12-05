@@ -536,6 +536,7 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeAMDGPUTarget() {
   initializeGCNRewritePartialRegUsesPass(*PR);
   initializeGCNRegPressurePrinterPass(*PR);
   initializeAMDGPUWaitSGPRHazardsPass(*PR);
+  initializeAMDGPUMarkSGPRHazardRegsPass(*PR);
 }
 
 static std::unique_ptr<TargetLoweringObjectFile> createTLOF(const Triple &TT) {
@@ -1555,6 +1556,7 @@ bool GCNPassConfig::addRegAssignAndRewriteOptimized() {
 
   addPass(&GCNPreRALongBranchRegID);
 
+  addPass(&AMDGPUMarkSGPRHazardRegsID);
   addPass(createSGPRAllocPass(true));
 
   // Commit allocated register changes. This is mostly necessary because too
