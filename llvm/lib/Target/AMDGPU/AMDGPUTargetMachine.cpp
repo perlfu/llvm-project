@@ -35,6 +35,8 @@
 #include "AMDGPUTargetTransformInfo.h"
 #include "AMDGPUUnifyDivergentExitNodes.h"
 #include "AMDGPUWaitSGPRHazards.h"
+#include "AMDGPUWholeQuadMode.h"
+#include "AMDGPUWholeWaveMode.h"
 #include "GCNDPPCombine.h"
 #include "GCNIterativeScheduler.h"
 #include "GCNNSAReassign.h"
@@ -62,7 +64,6 @@
 #include "SIPostRABundler.h"
 #include "SIPreAllocateWWMRegs.h"
 #include "SIShrinkInstructions.h"
-#include "SIWholeQuadMode.h"
 #include "TargetInfo/AMDGPUTargetInfo.h"
 #include "Utils/AMDGPUBaseInfo.h"
 #include "llvm/Analysis/CGSCCPassManager.h"
@@ -589,7 +590,7 @@ extern "C" LLVM_ABI LLVM_EXTERNAL_VISIBILITY void LLVMInitializeAMDGPUTarget() {
   initializeSIInsertHardClausesLegacyPass(*PR);
   initializeSIInsertWaitcntsLegacyPass(*PR);
   initializeSIModeRegisterLegacyPass(*PR);
-  initializeSIWholeQuadModeLegacyPass(*PR);
+  initializeAMDGPUWholeQuadModeLegacyPass(*PR);
   initializeSILowerControlFlowLegacyPass(*PR);
   initializeSIPreEmitPeepholeLegacyPass(*PR);
   initializeSILateBranchLoweringLegacyPass(*PR);
@@ -613,6 +614,7 @@ extern "C" LLVM_ABI LLVM_EXTERNAL_VISIBILITY void LLVMInitializeAMDGPUTarget() {
   initializeAMDGPUPreloadKernArgPrologLegacyPass(*PR);
   initializeAMDGPUWaitSGPRHazardsLegacyPass(*PR);
   initializeAMDGPUPreloadKernelArgumentsLegacyPass(*PR);
+  initializeAMDGPUWholeWaveModeLegacyPass(*PR);
 }
 
 static std::unique_ptr<TargetLoweringObjectFile> createTLOF(const Triple &TT) {
@@ -1565,7 +1567,8 @@ void GCNPassConfig::addFastRegAlloc() {
   // SI_ELSE will introduce a copy of the tied operand source after the else.
   insertPass(&PHIEliminationID, &SILowerControlFlowLegacyID);
 
-  insertPass(&TwoAddressInstructionPassID, &SIWholeQuadModeID);
+  insertPass(&TwoAddressInstructionPassID, &AMDGPUWholeWaveModeID);
+  insertPass(&TwoAddressInstructionPassID, &AMDGPUWholeQuadModeID);
 
   TargetPassConfig::addFastRegAlloc();
 }
@@ -1597,9 +1600,10 @@ void GCNPassConfig::addOptimizedRegAlloc() {
   if (isPassEnabled(EnablePreRAOptimizations))
     insertPass(&MachineSchedulerID, &GCNPreRAOptimizationsID);
 
-  // Allow the scheduler to run before SIWholeQuadMode inserts exec manipulation
+  // Allow the scheduler to run before WWM/WQM inserts exec manipulation
   // instructions that cause scheduling barriers.
-  insertPass(&MachineSchedulerID, &SIWholeQuadModeID);
+  insertPass(&MachineSchedulerID, &AMDGPUWholeWaveModeID);
+  insertPass(&MachineSchedulerID, &AMDGPUWholeQuadModeID);
 
   if (OptExecMaskPreRA)
     insertPass(&MachineSchedulerID, &SIOptimizeExecMaskingPreRAID);
@@ -2264,9 +2268,10 @@ void AMDGPUCodeGenPassBuilder::addOptimizedRegAlloc(
   if (isPassEnabled(EnablePreRAOptimizations))
     insertPass<MachineSchedulerPass>(GCNPreRAOptimizationsPass());
 
-  // Allow the scheduler to run before SIWholeQuadMode inserts exec manipulation
+  // Allow the scheduler to run before WWM/WQM inserts exec manipulation
   // instructions that cause scheduling barriers.
-  insertPass<MachineSchedulerPass>(SIWholeQuadModePass());
+  insertPass<MachineSchedulerPass>(AMDGPUWholeWaveModePass());
+  insertPass<MachineSchedulerPass>(AMDGPUWholeQuadModePass());
 
   if (OptExecMaskPreRA)
     insertPass<MachineSchedulerPass>(SIOptimizeExecMaskingPreRAPass());

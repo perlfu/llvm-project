@@ -573,7 +573,7 @@ define amdgpu_cs_chain void @set_inactive_chain_arg_call(ptr addrspace(1) %out, 
 }
 
 ; When lowering function arguments, SelectionDAG will put the COPY for the last argument first.
-; This used to trigger a bug in si-wqm where the first COPY in the entry block was always skipped
+; This used to trigger a bug in amdgpu-wqm where the first COPY in the entry block was always skipped
 ; before entering a strict mode, meaning that we'd only copy the active lanes of the last VGPR
 ; argument, so we'd end up using arbitrary values for the inactive lanes.
 define amdgpu_cs_chain void @set_inactive_chain_arg_last_vgpr(ptr addrspace(1) %out, i32 %active, i32 %inactive) {

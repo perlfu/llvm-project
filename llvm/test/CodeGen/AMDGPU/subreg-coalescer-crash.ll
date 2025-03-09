@@ -51,12 +51,14 @@ for.inc.1:                                        ; preds = %do.body.1562.prehea
 define amdgpu_ps void @foo() #0 {
 ; GCN-LABEL: foo:
 ; GCN:       ; %bb.0: ; %bb
-; GCN-NEXT:    s_mov_b64 s[0:1], -1
+; GCN-NEXT:    s_mov_b64 s[0:1], exec
+; GCN-NEXT:    s_wqm_b64 exec, exec
+; GCN-NEXT:    s_mov_b64 s[2:3], -1
 ; GCN-NEXT:    s_cbranch_scc0 .LBB1_2
 ; GCN-NEXT:  ; %bb.1: ; %bb24
-; GCN-NEXT:    s_mov_b64 s[0:1], 0
+; GCN-NEXT:    s_mov_b64 s[2:3], 0
 ; GCN-NEXT:  .LBB1_2: ; %Flow1
-; GCN-NEXT:    s_and_b64 vcc, exec, s[0:1]
+; GCN-NEXT:    s_and_b64 vcc, exec, s[2:3]
 ; GCN-NEXT:    s_cbranch_vccz .LBB1_4
 ; GCN-NEXT:  ; %bb.3: ; %bb9
 ; GCN-NEXT:    image_sample v[0:1], v0, s[0:7], s[0:3] dmask:0xa
@@ -65,6 +67,7 @@ define amdgpu_ps void @foo() #0 {
 ; GCN-NEXT:    v_mov_b32_e32 v1, 0
 ; GCN-NEXT:    v_mov_b32_e32 v0, 0
 ; GCN-NEXT:  .LBB1_5: ; %bb14
+; GCN-NEXT:    s_and_b64 exec, exec, s[0:1]
 ; GCN-NEXT:    s_waitcnt vmcnt(0)
 ; GCN-NEXT:    v_mul_f32_e32 v0, 0x41280000, v0
 ; GCN-NEXT:    v_mul_f32_e32 v1, 0x41380000, v1

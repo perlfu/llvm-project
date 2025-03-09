@@ -16,13 +16,8 @@ define amdgpu_ps void @group_image_sample(i32 inreg noundef %globalTable, i32 in
 ; GFX11-NEXT:    s_load_b128 s[12:15], s[0:1], 0x0
 ; GFX11-NEXT:    s_load_b128 s[8:11], s[2:3], 0x0
 ; GFX11-NEXT:    s_load_b256 s[0:7], s[6:7], 0x0
-; GFX11-NEXT:    s_mov_b32 s16, exec_lo
-; GFX11-NEXT:    s_wqm_b32 exec_lo, exec_lo
 ; GFX11-NEXT:    lds_param_load v2, attr0.y wait_vdst:15
 ; GFX11-NEXT:    lds_param_load v3, attr0.x wait_vdst:15
-; GFX11-NEXT:    s_mov_b32 exec_lo, s16
-; GFX11-NEXT:    v_interp_p10_f32 v4, v2, v0, v2 wait_exp:1
-; GFX11-NEXT:    v_interp_p10_f32 v0, v3, v0, v3 wait_exp:0
 ; GFX11-NEXT:    s_waitcnt lgkmcnt(0)
 ; GFX11-NEXT:    s_clause 0xf
 ; GFX11-NEXT:    s_buffer_load_b64 s[16:17], s[12:15], 0x10
@@ -41,27 +36,23 @@ define amdgpu_ps void @group_image_sample(i32 inreg noundef %globalTable, i32 in
 ; GFX11-NEXT:    s_buffer_load_b64 s[44:45], s[12:15], 0xe0
 ; GFX11-NEXT:    s_buffer_load_b64 s[46:47], s[12:15], 0xf0
 ; GFX11-NEXT:    s_buffer_load_b64 s[12:13], s[12:15], 0x100
-; GFX11-NEXT:    v_interp_p2_f32 v36, v2, v1, v4 wait_exp:7
-; GFX11-NEXT:    v_interp_p2_f32 v0, v3, v1, v0 wait_exp:7
-; GFX11-NEXT:    s_waitcnt lgkmcnt(0)
+; GFX11-NEXT:    v_interp_p10_f32 v4, v2, v0, v2 wait_exp:1
+; GFX11-NEXT:    v_interp_p10_f32 v0, v3, v0, v3 wait_exp:0
 ; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_2)
-; GFX11-NEXT:    v_add_f32_e32 v5, s17, v36
-; GFX11-NEXT:    v_add_f32_e32 v4, s16, v0
-; GFX11-NEXT:    v_add_f32_e32 v8, s18, v0
-; GFX11-NEXT:    v_add_f32_e32 v9, s19, v36
-; GFX11-NEXT:    v_add_f32_e32 v12, s20, v0
-; GFX11-NEXT:    v_add_f32_e32 v13, s21, v36
-; GFX11-NEXT:    v_add_f32_e32 v16, s22, v0
-; GFX11-NEXT:    v_add_f32_e32 v17, s23, v36
-; GFX11-NEXT:    v_add_f32_e32 v20, s24, v0
-; GFX11-NEXT:    v_add_f32_e32 v21, s25, v36
-; GFX11-NEXT:    v_add_f32_e32 v24, s26, v0
-; GFX11-NEXT:    v_add_f32_e32 v25, s27, v36
-; GFX11-NEXT:    v_add_f32_e32 v28, s28, v0
-; GFX11-NEXT:    v_add_f32_e32 v29, s29, v36
-; GFX11-NEXT:    v_add_f32_e32 v32, s30, v0
-; GFX11-NEXT:    v_add_f32_e32 v33, s31, v36
+; GFX11-NEXT:    v_interp_p2_f32 v32, v2, v1, v4 wait_exp:7
+; GFX11-NEXT:    v_interp_p2_f32 v33, v3, v1, v0 wait_exp:7
+; GFX11-NEXT:    s_waitcnt lgkmcnt(0)
+; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_1)
+; GFX11-NEXT:    v_dual_add_f32 v1, s17, v32 :: v_dual_add_f32 v0, s16, v33
+; GFX11-NEXT:    v_dual_add_f32 v4, s18, v33 :: v_dual_add_f32 v5, s19, v32
+; GFX11-NEXT:    v_dual_add_f32 v8, s20, v33 :: v_dual_add_f32 v9, s21, v32
+; GFX11-NEXT:    v_dual_add_f32 v12, s22, v33 :: v_dual_add_f32 v13, s23, v32
+; GFX11-NEXT:    v_dual_add_f32 v16, s24, v33 :: v_dual_add_f32 v17, s25, v32
+; GFX11-NEXT:    v_dual_add_f32 v20, s26, v33 :: v_dual_add_f32 v21, s27, v32
+; GFX11-NEXT:    v_dual_add_f32 v24, s28, v33 :: v_dual_add_f32 v25, s29, v32
+; GFX11-NEXT:    v_dual_add_f32 v28, s30, v33 :: v_dual_add_f32 v29, s31, v32
 ; GFX11-NEXT:    s_clause 0x7
+; GFX11-NEXT:    image_sample v[0:3], v[0:1], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
 ; GFX11-NEXT:    image_sample v[4:7], v[4:5], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
 ; GFX11-NEXT:    image_sample v[8:11], v[8:9], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
 ; GFX11-NEXT:    image_sample v[12:15], v[12:13], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
@@ -69,95 +60,86 @@ define amdgpu_ps void @group_image_sample(i32 inreg noundef %globalTable, i32 in
 ; GFX11-NEXT:    image_sample v[20:23], v[20:21], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
 ; GFX11-NEXT:    image_sample v[24:27], v[24:25], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
 ; GFX11-NEXT:    image_sample v[28:31], v[28:29], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
-; GFX11-NEXT:    image_sample v[32:35], v[32:33], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
-; GFX11-NEXT:    v_add_f32_e32 v37, s34, v0
-; GFX11-NEXT:    v_add_f32_e32 v38, s35, v36
-; GFX11-NEXT:    v_add_f32_e32 v40, s36, v0
-; GFX11-NEXT:    v_add_f32_e32 v41, s37, v36
-; GFX11-NEXT:    v_add_f32_e32 v44, s38, v0
-; GFX11-NEXT:    v_add_f32_e32 v45, s39, v36
-; GFX11-NEXT:    v_add_f32_e32 v48, s40, v0
-; GFX11-NEXT:    v_add_f32_e32 v49, s41, v36
-; GFX11-NEXT:    v_add_f32_e32 v52, s42, v0
-; GFX11-NEXT:    v_add_f32_e32 v53, s43, v36
-; GFX11-NEXT:    v_add_f32_e32 v56, s44, v0
-; GFX11-NEXT:    v_add_f32_e32 v57, s45, v36
-; GFX11-NEXT:    v_add_f32_e32 v60, s46, v0
-; GFX11-NEXT:    v_add_f32_e32 v61, s47, v36
-; GFX11-NEXT:    v_add_f32_e32 v0, s12, v0
-; GFX11-NEXT:    v_add_f32_e32 v1, s13, v36
+; GFX11-NEXT:    v_dual_add_f32 v34, s34, v33 :: v_dual_add_f32 v35, s35, v32
+; GFX11-NEXT:    v_dual_add_f32 v36, s36, v33 :: v_dual_add_f32 v37, s37, v32
+; GFX11-NEXT:    v_dual_add_f32 v40, s38, v33 :: v_dual_add_f32 v41, s39, v32
+; GFX11-NEXT:    v_dual_add_f32 v44, s40, v33 :: v_dual_add_f32 v45, s41, v32
+; GFX11-NEXT:    v_dual_add_f32 v48, s42, v33 :: v_dual_add_f32 v49, s43, v32
+; GFX11-NEXT:    v_dual_add_f32 v52, s44, v33 :: v_dual_add_f32 v53, s45, v32
+; GFX11-NEXT:    v_dual_add_f32 v56, s46, v33 :: v_dual_add_f32 v57, s47, v32
+; GFX11-NEXT:    v_dual_add_f32 v60, s12, v33 :: v_dual_add_f32 v61, s13, v32
 ; GFX11-NEXT:    s_and_b32 exec_lo, exec_lo, s33
 ; GFX11-NEXT:    s_clause 0x7
-; GFX11-NEXT:    image_sample v[36:39], v[37:38], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
+; GFX11-NEXT:    image_sample v[32:35], v[34:35], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
+; GFX11-NEXT:    image_sample v[36:39], v[36:37], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
 ; GFX11-NEXT:    image_sample v[40:43], v[40:41], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
 ; GFX11-NEXT:    image_sample v[44:47], v[44:45], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
 ; GFX11-NEXT:    image_sample v[48:51], v[48:49], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
 ; GFX11-NEXT:    image_sample v[52:55], v[52:53], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
 ; GFX11-NEXT:    image_sample v[56:59], v[56:57], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
 ; GFX11-NEXT:    image_sample v[60:63], v[60:61], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
-; GFX11-NEXT:    image_sample v[64:67], v[0:1], s[0:7], s[8:11] dmask:0xf dim:SQ_RSRC_IMG_2D
 ; GFX11-NEXT:    s_waitcnt vmcnt(14)
-; GFX11-NEXT:    v_dual_add_f32 v0, v8, v4 :: v_dual_add_f32 v1, v9, v5
-; GFX11-NEXT:    v_dual_add_f32 v4, v10, v6 :: v_dual_add_f32 v5, v11, v7
+; GFX11-NEXT:    v_dual_add_f32 v0, v4, v0 :: v_dual_add_f32 v1, v5, v1
+; GFX11-NEXT:    v_dual_add_f32 v2, v6, v2 :: v_dual_add_f32 v3, v7, v3
 ; GFX11-NEXT:    s_waitcnt vmcnt(13)
 ; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_2)
-; GFX11-NEXT:    v_dual_add_f32 v0, v12, v0 :: v_dual_add_f32 v1, v13, v1
-; GFX11-NEXT:    v_dual_add_f32 v4, v14, v4 :: v_dual_add_f32 v5, v15, v5
+; GFX11-NEXT:    v_dual_add_f32 v0, v8, v0 :: v_dual_add_f32 v1, v9, v1
+; GFX11-NEXT:    v_dual_add_f32 v2, v10, v2 :: v_dual_add_f32 v3, v11, v3
 ; GFX11-NEXT:    s_waitcnt vmcnt(12)
 ; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_2)
-; GFX11-NEXT:    v_dual_add_f32 v0, v16, v0 :: v_dual_add_f32 v1, v17, v1
-; GFX11-NEXT:    v_dual_add_f32 v4, v18, v4 :: v_dual_add_f32 v5, v19, v5
+; GFX11-NEXT:    v_dual_add_f32 v0, v12, v0 :: v_dual_add_f32 v1, v13, v1
+; GFX11-NEXT:    v_dual_add_f32 v2, v14, v2 :: v_dual_add_f32 v3, v15, v3
 ; GFX11-NEXT:    s_waitcnt vmcnt(11)
 ; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_2)
-; GFX11-NEXT:    v_dual_add_f32 v0, v20, v0 :: v_dual_add_f32 v1, v21, v1
-; GFX11-NEXT:    v_dual_add_f32 v4, v22, v4 :: v_dual_add_f32 v5, v23, v5
+; GFX11-NEXT:    v_dual_add_f32 v0, v16, v0 :: v_dual_add_f32 v1, v17, v1
+; GFX11-NEXT:    v_dual_add_f32 v2, v18, v2 :: v_dual_add_f32 v3, v19, v3
 ; GFX11-NEXT:    s_waitcnt vmcnt(10)
 ; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_2)
-; GFX11-NEXT:    v_dual_add_f32 v0, v24, v0 :: v_dual_add_f32 v1, v25, v1
-; GFX11-NEXT:    v_dual_add_f32 v4, v26, v4 :: v_dual_add_f32 v5, v27, v5
+; GFX11-NEXT:    v_dual_add_f32 v0, v20, v0 :: v_dual_add_f32 v1, v21, v1
+; GFX11-NEXT:    v_dual_add_f32 v2, v22, v2 :: v_dual_add_f32 v3, v23, v3
 ; GFX11-NEXT:    s_waitcnt vmcnt(9)
 ; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_2)
-; GFX11-NEXT:    v_dual_add_f32 v0, v28, v0 :: v_dual_add_f32 v1, v29, v1
-; GFX11-NEXT:    v_dual_add_f32 v4, v30, v4 :: v_dual_add_f32 v5, v31, v5
+; GFX11-NEXT:    v_dual_add_f32 v0, v24, v0 :: v_dual_add_f32 v1, v25, v1
+; GFX11-NEXT:    v_dual_add_f32 v2, v26, v2 :: v_dual_add_f32 v3, v27, v3
 ; GFX11-NEXT:    s_waitcnt vmcnt(8)
 ; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_2)
-; GFX11-NEXT:    v_dual_add_f32 v0, v32, v0 :: v_dual_add_f32 v1, v33, v1
-; GFX11-NEXT:    v_dual_add_f32 v4, v34, v4 :: v_dual_add_f32 v5, v35, v5
+; GFX11-NEXT:    v_dual_add_f32 v0, v28, v0 :: v_dual_add_f32 v1, v29, v1
+; GFX11-NEXT:    v_dual_add_f32 v2, v30, v2 :: v_dual_add_f32 v3, v31, v3
 ; GFX11-NEXT:    s_waitcnt vmcnt(7)
 ; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_2)
-; GFX11-NEXT:    v_dual_add_f32 v0, v36, v0 :: v_dual_add_f32 v1, v37, v1
-; GFX11-NEXT:    v_dual_add_f32 v4, v38, v4 :: v_dual_add_f32 v5, v39, v5
+; GFX11-NEXT:    v_dual_add_f32 v0, v32, v0 :: v_dual_add_f32 v1, v33, v1
+; GFX11-NEXT:    v_dual_add_f32 v2, v34, v2 :: v_dual_add_f32 v3, v35, v3
 ; GFX11-NEXT:    s_waitcnt vmcnt(6)
 ; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_2)
-; GFX11-NEXT:    v_dual_add_f32 v0, v40, v0 :: v_dual_add_f32 v1, v41, v1
-; GFX11-NEXT:    v_dual_add_f32 v4, v42, v4 :: v_dual_add_f32 v5, v43, v5
+; GFX11-NEXT:    v_dual_add_f32 v0, v36, v0 :: v_dual_add_f32 v1, v37, v1
+; GFX11-NEXT:    v_dual_add_f32 v2, v38, v2 :: v_dual_add_f32 v3, v39, v3
 ; GFX11-NEXT:    s_waitcnt vmcnt(5)
 ; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_2)
-; GFX11-NEXT:    v_dual_add_f32 v0, v44, v0 :: v_dual_add_f32 v1, v45, v1
-; GFX11-NEXT:    v_dual_add_f32 v4, v46, v4 :: v_dual_add_f32 v5, v47, v5
+; GFX11-NEXT:    v_dual_add_f32 v0, v40, v0 :: v_dual_add_f32 v1, v41, v1
+; GFX11-NEXT:    v_dual_add_f32 v2, v42, v2 :: v_dual_add_f32 v3, v43, v3
 ; GFX11-NEXT:    s_waitcnt vmcnt(4)
 ; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_2)
-; GFX11-NEXT:    v_dual_add_f32 v0, v48, v0 :: v_dual_add_f32 v1, v49, v1
-; GFX11-NEXT:    v_dual_add_f32 v4, v50, v4 :: v_dual_add_f32 v5, v51, v5
+; GFX11-NEXT:    v_dual_add_f32 v0, v44, v0 :: v_dual_add_f32 v1, v45, v1
+; GFX11-NEXT:    v_dual_add_f32 v2, v46, v2 :: v_dual_add_f32 v3, v47, v3
 ; GFX11-NEXT:    s_waitcnt vmcnt(3)
 ; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_2)
-; GFX11-NEXT:    v_dual_add_f32 v0, v52, v0 :: v_dual_add_f32 v1, v53, v1
-; GFX11-NEXT:    v_dual_add_f32 v4, v54, v4 :: v_dual_add_f32 v5, v55, v5
+; GFX11-NEXT:    v_dual_add_f32 v0, v48, v0 :: v_dual_add_f32 v1, v49, v1
+; GFX11-NEXT:    v_dual_add_f32 v2, v50, v2 :: v_dual_add_f32 v3, v51, v3
 ; GFX11-NEXT:    s_waitcnt vmcnt(2)
 ; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_2)
-; GFX11-NEXT:    v_dual_add_f32 v0, v56, v0 :: v_dual_add_f32 v1, v57, v1
-; GFX11-NEXT:    v_dual_add_f32 v4, v58, v4 :: v_dual_add_f32 v5, v59, v5
+; GFX11-NEXT:    v_dual_add_f32 v0, v52, v0 :: v_dual_add_f32 v1, v53, v1
+; GFX11-NEXT:    v_dual_add_f32 v2, v54, v2 :: v_dual_add_f32 v3, v55, v3
 ; GFX11-NEXT:    s_waitcnt vmcnt(1)
 ; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_2)
-; GFX11-NEXT:    v_dual_add_f32 v0, v60, v0 :: v_dual_add_f32 v1, v61, v1
-; GFX11-NEXT:    v_dual_add_f32 v4, v62, v4 :: v_dual_add_f32 v5, v63, v5
+; GFX11-NEXT:    v_dual_add_f32 v0, v56, v0 :: v_dual_add_f32 v1, v57, v1
+; GFX11-NEXT:    v_dual_add_f32 v2, v58, v2 :: v_dual_add_f32 v3, v59, v3
 ; GFX11-NEXT:    s_waitcnt vmcnt(0)
 ; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_2)
-; GFX11-NEXT:    v_dual_add_f32 v0, v64, v0 :: v_dual_add_f32 v1, v65, v1
-; GFX11-NEXT:    v_dual_add_f32 v4, v66, v4 :: v_dual_add_f32 v5, v67, v5
+; GFX11-NEXT:    v_dual_add_f32 v0, v60, v0 :: v_dual_add_f32 v1, v61, v1
+; GFX11-NEXT:    v_dual_add_f32 v2, v62, v2 :: v_dual_add_f32 v3, v63, v3
 ; GFX11-NEXT:    s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_2)
 ; GFX11-NEXT:    v_cvt_pk_rtz_f16_f32_e32 v0, v0, v1
-; GFX11-NEXT:    v_cvt_pk_rtz_f16_f32_e32 v1, v4, v5
+; GFX11-NEXT:    v_cvt_pk_rtz_f16_f32_e32 v1, v2, v3
 ; GFX11-NEXT:    exp mrt0 v0, v1, off, off done
 ; GFX11-NEXT:    s_endpgm
 .entry:

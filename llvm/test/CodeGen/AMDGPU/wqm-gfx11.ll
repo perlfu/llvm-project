@@ -6,12 +6,9 @@ define amdgpu_ps <3 x float> @test_param_load(i32 inreg %attr, <3 x float> %to_a
 ; CHECK-LABEL: test_param_load:
 ; CHECK:       ; %bb.0: ; %main_body
 ; CHECK-NEXT:    s_mov_b32 m0, s0
-; CHECK-NEXT:    s_mov_b32 s0, exec_lo
-; CHECK-NEXT:    s_wqm_b32 exec_lo, exec_lo
 ; CHECK-NEXT:    lds_param_load v3, attr0.x wait_vdst:15
 ; CHECK-NEXT:    lds_param_load v4, attr0.y wait_vdst:15
 ; CHECK-NEXT:    lds_param_load v5, attr0.z wait_vdst:15
-; CHECK-NEXT:    s_mov_b32 exec_lo, s0
 ; CHECK-NEXT:    s_waitcnt expcnt(1)
 ; CHECK-NEXT:    v_dual_add_f32 v0, v3, v0 :: v_dual_add_f32 v1, v4, v1
 ; CHECK-NEXT:    s_waitcnt expcnt(0)
@@ -33,14 +30,11 @@ define amdgpu_ps <3 x float> @test_direct_load(i32 inreg %arg_0, i32 inreg %arg_
 ; CHECK-LABEL: test_direct_load:
 ; CHECK:       ; %bb.0: ; %main_body
 ; CHECK-NEXT:    s_mov_b32 m0, s0
-; CHECK-NEXT:    s_mov_b32 s0, exec_lo
-; CHECK-NEXT:    s_wqm_b32 exec_lo, exec_lo
 ; CHECK-NEXT:    lds_direct_load v3 wait_vdst:15
 ; CHECK-NEXT:    s_mov_b32 m0, s1
 ; CHECK-NEXT:    lds_direct_load v4 wait_vdst:15
 ; CHECK-NEXT:    s_mov_b32 m0, s2
 ; CHECK-NEXT:    lds_direct_load v5 wait_vdst:15
-; CHECK-NEXT:    s_mov_b32 exec_lo, s0
 ; CHECK-NEXT:    s_waitcnt expcnt(1)
 ; CHECK-NEXT:    v_dual_add_f32 v0, v3, v0 :: v_dual_add_f32 v1, v4, v1
 ; CHECK-NEXT:    s_waitcnt expcnt(0)

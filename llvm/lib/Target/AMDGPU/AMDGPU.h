@@ -41,7 +41,6 @@ FunctionPass *createSIPeepholeSDWALegacyPass();
 FunctionPass *createSILowerI1CopiesLegacyPass();
 FunctionPass *createSIShrinkInstructionsLegacyPass();
 FunctionPass *createSILoadStoreOptimizerLegacyPass();
-FunctionPass *createSIWholeQuadModeLegacyPass();
 FunctionPass *createSIFixControlFlowLiveIntervalsPass();
 FunctionPass *createSIOptimizeExecMaskingPreRAPass();
 FunctionPass *createSIOptimizeVGPRLiveRangeLegacyPass();
@@ -67,6 +66,8 @@ FunctionPass *createSIModeRegisterPass();
 FunctionPass *createGCNPreRAOptimizationsLegacyPass();
 FunctionPass *createAMDGPUPreloadKernArgPrologLegacyPass();
 ModulePass *createAMDGPUPreloadKernelArgumentsLegacyPass(const TargetMachine *);
+FunctionPass *createAMDGPUWholeQuadModeLegacyPass();
+FunctionPass *createAMDGPUWholeWaveModeLegacyPass();
 
 struct AMDGPUSimplifyLibCallsPass : PassInfoMixin<AMDGPUSimplifyLibCallsPass> {
   AMDGPUSimplifyLibCallsPass() {}
@@ -215,8 +216,8 @@ extern char &SILowerSGPRSpillsLegacyID;
 void initializeSILoadStoreOptimizerLegacyPass(PassRegistry &);
 extern char &SILoadStoreOptimizerLegacyID;
 
-void initializeSIWholeQuadModeLegacyPass(PassRegistry &);
-extern char &SIWholeQuadModeID;
+void initializeAMDGPUWholeQuadModeLegacyPass(PassRegistry &);
+extern char &AMDGPUWholeQuadModeID;
 
 void initializeSILowerControlFlowLegacyPass(PassRegistry &);
 extern char &SILowerControlFlowLegacyID;
@@ -247,6 +248,9 @@ extern char &AMDGPUPreloadKernArgPrologLegacyID;
 
 void initializeAMDGPUPreloadKernelArgumentsLegacyPass(PassRegistry &);
 extern char &AMDGPUPreloadKernelArgumentsLegacyID;
+
+void initializeAMDGPUWholeWaveModeLegacyPass(PassRegistry &);
+extern char &AMDGPUWholeWaveModeID;
 
 // Passes common to R600 and SI
 FunctionPass *createAMDGPUPromoteAlloca();

@@ -6,11 +6,11 @@
 define amdgpu_hs void @wwm(i32 inreg %arg, ptr addrspace(8) inreg %buffer) {
 ; GCN-LABEL: wwm:
 ; GCN:       ; %bb.0: ; %entry
+; GCN-NEXT:    s_mov_b32 s7, s4
 ; GCN-NEXT:    s_mov_b32 s6, s3
 ; GCN-NEXT:    s_mov_b32 s5, s2
-; GCN-NEXT:    s_or_saveexec_b64 s[2:3], -1
-; GCN-NEXT:    s_mov_b32 s7, s4
 ; GCN-NEXT:    s_mov_b32 s4, s1
+; GCN-NEXT:    s_or_saveexec_b64 s[2:3], -1
 ; GCN-NEXT:    s_mov_b32 s1, 1
 ; GCN-NEXT:    v_cndmask_b32_e64 v0, 1, 4, s[2:3]
 ; GCN-NEXT:    v_lshlrev_b32_e32 v0, 2, v0
@@ -60,11 +60,11 @@ work:
 define amdgpu_hs void @strict_wwm(i32 inreg %arg, ptr addrspace(8) inreg %buffer) {
 ; GCN-LABEL: strict_wwm:
 ; GCN:       ; %bb.0: ; %entry
+; GCN-NEXT:    s_mov_b32 s7, s4
 ; GCN-NEXT:    s_mov_b32 s6, s3
 ; GCN-NEXT:    s_mov_b32 s5, s2
-; GCN-NEXT:    s_or_saveexec_b64 s[2:3], -1
-; GCN-NEXT:    s_mov_b32 s7, s4
 ; GCN-NEXT:    s_mov_b32 s4, s1
+; GCN-NEXT:    s_or_saveexec_b64 s[2:3], -1
 ; GCN-NEXT:    s_mov_b32 s1, 1
 ; GCN-NEXT:    v_cndmask_b32_e64 v0, 1, 4, s[2:3]
 ; GCN-NEXT:    v_lshlrev_b32_e32 v0, 2, v0

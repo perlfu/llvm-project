@@ -118,6 +118,8 @@ MACHINE_FUNCTION_PASS("amdgpu-preload-kern-arg-prolog", AMDGPUPreloadKernArgProl
 MACHINE_FUNCTION_PASS("amdgpu-prepare-agpr-alloc", AMDGPUPrepareAGPRAllocPass())
 MACHINE_FUNCTION_PASS("amdgpu-nsa-reassign", GCNNSAReassignPass())
 MACHINE_FUNCTION_PASS("amdgpu-wait-sgpr-hazards", AMDGPUWaitSGPRHazardsPass())
+MACHINE_FUNCTION_PASS("amdgpu-wqm", AMDGPUWholeQuadModePass())
+MACHINE_FUNCTION_PASS("amdgpu-wwm", AMDGPUWholeWaveModePass())
 MACHINE_FUNCTION_PASS("gcn-create-vopd", GCNCreateVOPDPass())
 MACHINE_FUNCTION_PASS("gcn-dpp-combine", GCNDPPCombinePass())
 MACHINE_FUNCTION_PASS("si-fix-sgpr-copies", SIFixSGPRCopiesPass())
@@ -142,7 +144,6 @@ MACHINE_FUNCTION_PASS("si-post-ra-bundler", SIPostRABundlerPass())
 MACHINE_FUNCTION_PASS("si-pre-allocate-wwm-regs", SIPreAllocateWWMRegsPass())
 MACHINE_FUNCTION_PASS("si-pre-emit-peephole", SIPreEmitPeepholePass())
 MACHINE_FUNCTION_PASS("si-shrink-instructions", SIShrinkInstructionsPass())
-MACHINE_FUNCTION_PASS("si-wqm", SIWholeQuadModePass())
 #undef MACHINE_FUNCTION_PASS
 
 #define DUMMY_MACHINE_FUNCTION_PASS(NAME, CREATE_PASS)

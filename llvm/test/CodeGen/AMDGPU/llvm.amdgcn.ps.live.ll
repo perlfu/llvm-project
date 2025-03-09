@@ -19,9 +19,9 @@ define amdgpu_ps float @test1() #0 {
 
 ; CHECK-LABEL: {{^}}test2:
 ; CHECK: s_mov_b64 [[LIVE:s\[[0-9]+:[0-9]+\]]], exec
+; CHECK-DAG: s_wqm_b64 exec, exec
 ; Following copy should go away:
 ; CHECK: s_mov_b64 [[COPY:s\[[0-9]+:[0-9]+\]]], [[LIVE]]
-; CHECK-DAG: s_wqm_b64 exec, exec
 ; CHECK-DAG: v_cndmask_b32_e64 [[VAR:v[0-9]+]], 0, 1, [[COPY]]
 ; CHECK: image_sample v0, [[VAR]],
 define amdgpu_ps float @test2() #0 {

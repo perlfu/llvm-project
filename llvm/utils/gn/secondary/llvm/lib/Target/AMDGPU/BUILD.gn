@@ -204,6 +204,8 @@ static_library("LLVMAMDGPUCodeGen") {
     "AMDGPUTargetTransformInfo.cpp",
     "AMDGPUUnifyDivergentExitNodes.cpp",
     "AMDGPUWaitSGPRHazards.cpp",
+    "AMDGPUWholeQuadMode.cpp",
+    "AMDGPUWholeWaveMode.cpp",
     "GCNCreateVOPD.cpp",
     "GCNDPPCombine.cpp",
     "GCNHazardRecognizer.cpp",
@@ -269,7 +271,6 @@ static_library("LLVMAMDGPUCodeGen") {
     "SIProgramInfo.cpp",
     "SIRegisterInfo.cpp",
     "SIShrinkInstructions.cpp",
-    "SIWholeQuadMode.cpp",
   ]
 }
 

@@ -42,10 +42,10 @@ main_body:
 }
 
 ; GCN-LABEL: {{^}}sample_contig_nsa:
-; GFX10-NONSA: image_sample_c_l v5, v[0:4],
+; GFX10-NONSA: image_sample_c_l v0, v[0:4],
 ; GFX11-NONSA: image_sample_c_l v0, v[0:4],
-; GFX1010-NSA: image_sample_c_l v8, v[0:4],
-; GFX1010-NSA: image_sample v9, [v6, v7, v5],
+; GFX1010-NSA: image_sample_c_l v0, v[0:4],
+; GFX1010-NSA: image_sample v1, [v6, v7, v5],
 ; GFX1030-NSA: image_sample_c_l v0, v[0:4],
 ; GFX1030-NSA: image_sample v1, [v6, v7, v5],
 ; GFX11-NSA: image_sample_c_l v0, v[0:4],
@@ -60,8 +60,8 @@ main_body:
 }
 
 ; GCN-LABEL: {{^}}sample_nsa_nsa:
-; GFX1010-NSA: image_sample_c_l v8, [v1, v2, v3, v4, v0],
-; GFX1010-NSA: image_sample v9, [v6, v7, v5],
+; GFX1010-NSA: image_sample_c_l v0, [v1, v2, v3, v4, v0],
+; GFX1010-NSA: image_sample v1, [v6, v7, v5],
 ; GFX1030-NSA: image_sample_c_l v0, [v1, v2, v3, v4, v0],
 ; GFX1030-NSA: image_sample v1, [v6, v7, v5],
 ; GFX11-NSA: image_sample_c_l v0, [v1, v2, v3, v4, v0],
@@ -76,8 +76,8 @@ main_body:
 }
 
 ; GCN-LABEL: {{^}}sample_nsa_contig:
-; GFX1010-NSA: image_sample_c_l v8, [v1, v2, v3, v4, v0],
-; GFX1010-NSA: image_sample v9, v[5:7],
+; GFX1010-NSA: image_sample_c_l v0, [v1, v2, v3, v4, v0],
+; GFX1010-NSA: image_sample v1, v[5:7],
 ; GFX1030-NSA: image_sample_c_l v0, [v1, v2, v3, v4, v0],
 ; GFX1030-NSA: image_sample v1, v[5:7],
 ; GFX11-NSA: image_sample_c_l v0, [v1, v2, v3, v4, v0],
@@ -92,14 +92,14 @@ main_body:
 }
 
 ; GCN-LABEL: {{^}}sample_contig_contig:
-; GFX1010-NSA: image_sample_c_l v8, v[0:4],
-; GFX1010-NSA: image_sample v9, v[5:7],
+; GFX1010-NSA: image_sample_c_l v0, v[0:4],
+; GFX1010-NSA: image_sample v1, v[5:7],
 ; GFX1030-NSA: image_sample_c_l v0, v[0:4],
 ; GFX1030-NSA: image_sample v1, v[5:7],
 ; GFX11-NSA: image_sample_c_l v0, v[0:4],
 ; GFX11-NSA: image_sample v1, v[5:7],
-; GFX10-NONSA: image_sample_c_l v8, v[0:4],
-; GFX10-NONSA: image_sample v9, v[5:7],
+; GFX10-NONSA: image_sample_c_l v0, v[0:4],
+; GFX10-NONSA: image_sample v1, v[5:7],
 ; GFX11-NONSA: image_sample_c_l v0, v[0:4],
 ; GFX11-NONSA: image_sample v1, v[5:7],
 define amdgpu_ps <2 x float> @sample_contig_contig(<8 x i32> inreg %rsrc, <4 x i32> inreg %samp, float %zcompare, float %s1, float %t1, float %r1, float %lod, float %s2, float %t2, float %r2) {

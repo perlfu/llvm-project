@@ -9595,6 +9595,9 @@ bool SIInstrInfo::isBasicBlockPrologue(const MachineInstr &MI,
           (Opcode == AMDGPU::IMPLICIT_DEF &&
            MFI->isWWMReg(MI.getOperand(0).getReg())) ||
           (!MI.isTerminator() && Opcode != AMDGPU::COPY &&
+           Opcode != AMDGPU::SI_DEMOTE_I1 &&
+           Opcode != AMDGPU::ENTER_STRICT_WWM &&
+           Opcode != AMDGPU::ENTER_STRICT_WQM &&
            MI.modifiesRegister(AMDGPU::EXEC, &RI)));
 }
 

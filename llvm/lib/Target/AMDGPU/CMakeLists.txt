@@ -56,6 +56,7 @@ add_llvm_target(AMDGPUCodeGen
   AMDGPUCodeGenPrepare.cpp
   AMDGPUCombinerHelper.cpp
   AMDGPUCtorDtorLowering.cpp
+  AMDGPUExecMaskAnalysis.cpp
   AMDGPUExportClustering.cpp
   AMDGPUExportKernelRuntimeHandles.cpp
   AMDGPUFrameLowering.cpp
@@ -118,6 +119,8 @@ add_llvm_target(AMDGPUCodeGen
   AMDGPUTargetObjectFile.cpp
   AMDGPUTargetTransformInfo.cpp
   AMDGPUWaitSGPRHazards.cpp
+  AMDGPUWholeQuadMode.cpp
+  AMDGPUWholeWaveMode.cpp
   AMDGPUUnifyDivergentExitNodes.cpp
   R600MachineCFGStructurizer.cpp
   GCNCreateVOPD.cpp
@@ -184,7 +187,6 @@ add_llvm_target(AMDGPUCodeGen
   SIProgramInfo.cpp
   SIRegisterInfo.cpp
   SIShrinkInstructions.cpp
-  SIWholeQuadMode.cpp
 
   LINK_COMPONENTS
   AMDGPUDesc
