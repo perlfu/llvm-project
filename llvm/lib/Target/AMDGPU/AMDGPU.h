@@ -65,6 +65,7 @@ ModulePass *createAMDGPULowerBufferFatPointersPass();
 FunctionPass *createSIModeRegisterPass();
 FunctionPass *createGCNPreRAOptimizationsLegacyPass();
 FunctionPass *createAMDGPUPreloadKernArgPrologLegacyPass();
+FunctionPass *createAMDGPUWholeWaveModeLegacyPass();
 
 struct AMDGPUSimplifyLibCallsPass : PassInfoMixin<AMDGPUSimplifyLibCallsPass> {
   AMDGPUSimplifyLibCallsPass() {}
@@ -233,6 +234,9 @@ extern char &GCNRegPressurePrinterID;
 
 void initializeAMDGPUPreloadKernArgPrologLegacyPass(PassRegistry &);
 extern char &AMDGPUPreloadKernArgPrologLegacyID;
+
+void initializeAMDGPUWholeWaveModeLegacyPass(PassRegistry &);
+extern char &AMDGPUWholeWaveModeID;
 
 // Passes common to R600 and SI
 FunctionPass *createAMDGPUPromoteAlloca();

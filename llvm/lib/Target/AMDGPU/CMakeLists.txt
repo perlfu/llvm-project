@@ -111,6 +111,7 @@ add_llvm_target(AMDGPUCodeGen
   AMDGPUTargetObjectFile.cpp
   AMDGPUTargetTransformInfo.cpp
   AMDGPUWaitSGPRHazards.cpp
+  AMDGPUWholeWaveMode.cpp
   AMDGPUUnifyDivergentExitNodes.cpp
   AMDGPUUnifyMetadata.cpp
   R600MachineCFGStructurizer.cpp

@@ -30,6 +30,7 @@
 #include "AMDGPUTargetTransformInfo.h"
 #include "AMDGPUUnifyDivergentExitNodes.h"
 #include "AMDGPUWaitSGPRHazards.h"
+#include "AMDGPUWholeWaveMode.h"
 #include "GCNDPPCombine.h"
 #include "GCNIterativeScheduler.h"
 #include "GCNNSAReassign.h"
@@ -560,6 +561,7 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeAMDGPUTarget() {
   initializeGCNRegPressurePrinterPass(*PR);
   initializeAMDGPUPreloadKernArgPrologLegacyPass(*PR);
   initializeAMDGPUWaitSGPRHazardsLegacyPass(*PR);
+  initializeAMDGPUWholeWaveModeLegacyPass(*PR);
 }
 
 static std::unique_ptr<TargetLoweringObjectFile> createTLOF(const Triple &TT) {
@@ -1480,6 +1482,7 @@ void GCNPassConfig::addFastRegAlloc() {
   // SI_ELSE will introduce a copy of the tied operand source after the else.
   insertPass(&PHIEliminationID, &SILowerControlFlowLegacyID);
 
+  insertPass(&TwoAddressInstructionPassID, &AMDGPUWholeWaveModeID);
   insertPass(&TwoAddressInstructionPassID, &SIWholeQuadModeID);
 
   TargetPassConfig::addFastRegAlloc();
@@ -1509,6 +1512,7 @@ void GCNPassConfig::addOptimizedRegAlloc() {
 
   // Allow the scheduler to run before SIWholeQuadMode inserts exec manipulation
   // instructions that cause scheduling barriers.
+  insertPass(&MachineSchedulerID, &AMDGPUWholeWaveModeID);
   insertPass(&MachineSchedulerID, &SIWholeQuadModeID);
 
   if (OptExecMaskPreRA)
