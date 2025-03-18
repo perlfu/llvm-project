@@ -90,13 +90,8 @@ private:
   LiveIntervals *LIS;
 
   const TargetRegisterClass *BoolRC;
-  unsigned AndOpc;
-  unsigned AndTermOpc;
-  unsigned AndN2Opc;
-  unsigned XorOpc;
   unsigned AndSaveExecOpc;
-  unsigned AndSaveExecTermOpc;
-  unsigned WQMOpc;
+  unsigned OrSaveExecOpc;
   Register Exec;
 
   DenseMap<const MachineInstr *, InstrInfo> Instructions;
