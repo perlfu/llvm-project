@@ -132,7 +132,8 @@ private:
   bool isSCCLiveAt(const MachineInstr *MI);
   void insertWQMExit(MachineBasicBlock *MBB);
 
-  void splitBlock(MachineInstr *TermMI);
+  MachineBasicBlock *splitBlock(MachineInstr *TermMI,
+                                bool UpdateTerminator = true);
   MachineInstr *lowerKillI1(MachineInstr &MI, bool IsWQM);
   MachineInstr *lowerKillF32(MachineInstr &MI);
 
@@ -320,7 +321,8 @@ AMDGPUWholeQuadMode::saveSCC(MachineBasicBlock &MBB,
   return Restore;
 }
 
-void AMDGPUWholeQuadMode::splitBlock(MachineInstr *TermMI) {
+MachineBasicBlock *AMDGPUWholeQuadMode::splitBlock(MachineInstr *TermMI,
+                                                   bool UpdateTerminator) {
   MachineBasicBlock *BB = TermMI->getParent();
   LLVM_DEBUG(dbgs() << "Split block " << printMBBReference(*BB) << " @ "
                     << *TermMI << "\n");
@@ -328,35 +330,37 @@ void AMDGPUWholeQuadMode::splitBlock(MachineInstr *TermMI) {
   MachineBasicBlock *SplitBB =
       BB->splitAt(*TermMI, /*UpdateLiveIns*/ true, LIS);
 
-  // Convert last instruction in block to a terminator.
-  // Note: this only covers the expected patterns
-  unsigned NewOpcode = 0;
-  switch (TermMI->getOpcode()) {
-  case AMDGPU::S_AND_B32:
-    NewOpcode = AMDGPU::S_AND_B32_term;
-    break;
-  case AMDGPU::S_AND_B64:
-    NewOpcode = AMDGPU::S_AND_B64_term;
-    break;
-  case AMDGPU::S_MOV_B32:
-    NewOpcode = AMDGPU::S_MOV_B32_term;
-    break;
-  case AMDGPU::S_MOV_B64:
-    NewOpcode = AMDGPU::S_MOV_B64_term;
-    break;
-  case AMDGPU::S_ANDN2_B32:
-    NewOpcode = AMDGPU::S_ANDN2_B32_term;
-    break;
-  case AMDGPU::S_ANDN2_B64:
-    NewOpcode = AMDGPU::S_ANDN2_B64_term;
-    break;
-  default:
-    llvm_unreachable("Unexpected instruction");
-  }
+  if (UpdateTerminator) {
+    // Convert last instruction in block to a terminator.
+    // Note: this only covers the expected patterns
+    unsigned NewOpcode = 0;
+    switch (TermMI->getOpcode()) {
+    case AMDGPU::S_AND_B32:
+      NewOpcode = AMDGPU::S_AND_B32_term;
+      break;
+    case AMDGPU::S_AND_B64:
+      NewOpcode = AMDGPU::S_AND_B64_term;
+      break;
+    case AMDGPU::S_MOV_B32:
+      NewOpcode = AMDGPU::S_MOV_B32_term;
+      break;
+    case AMDGPU::S_MOV_B64:
+      NewOpcode = AMDGPU::S_MOV_B64_term;
+      break;
+    case AMDGPU::S_ANDN2_B32:
+      NewOpcode = AMDGPU::S_ANDN2_B32_term;
+      break;
+    case AMDGPU::S_ANDN2_B64:
+      NewOpcode = AMDGPU::S_ANDN2_B64_term;
+      break;
+    default:
+      llvm_unreachable("Unexpected instruction");
+    }
 
-  // These terminators fallthrough to the next block, no need to add an
-  // unconditional branch to the next block (SplitBB).
-  TermMI->setDesc(TII->get(NewOpcode));
+    // These terminators fallthrough to the next block, no need to add an
+    // unconditional branch to the next block (SplitBB).
+    TermMI->setDesc(TII->get(NewOpcode));
+  }
 
   if (SplitBB != BB) {
     // Update dominator trees
@@ -372,6 +376,8 @@ void AMDGPUWholeQuadMode::splitBlock(MachineInstr *TermMI) {
     if (PDT)
       PDT->applyUpdates(DTUpdates);
   }
+
+  return SplitBB;
 }
 
 MachineInstr *AMDGPUWholeQuadMode::lowerKillF32(MachineInstr &MI) {
@@ -558,6 +564,12 @@ MachineInstr *AMDGPUWholeQuadMode::lowerKillI1(MachineInstr &MI, bool IsWQM) {
   Register LiveMaskWQM;
   if (IsDemote) {
     // Demote - deactivate quads with only helper lanes
+    // LiveMaskWQM = S_WQM LiveMask
+    // NewExec = S_AND Exec, LiveMaskWQM
+    // SurvivorLane = S_CLZ_I32 Exec
+    // SurvivorExec = S_BITSET1 Tmp
+    // LiveMaskWQM = S_CSELECT SurvivorExec, NewExec
+    // Exec = S_AND Exec, LiveMaskWQM
     LiveMaskWQM = MRI->createVirtualRegister(TRI->getBoolRC());
     WQMMaskMI =
         BuildMI(MBB, MI, DL, TII->get(LMC.WQMOpc), LiveMaskWQM).addReg(LiveMaskReg);
@@ -617,6 +629,9 @@ void AMDGPUWholeQuadMode::lowerBlock(MachineBasicBlock &MBB, BlockInfo &BI,
   char State = BlockMode;
   Register SavedWQMReg = Register();
 
+  SmallVector<MachineInstr *> ExactEntry;
+  SmallVector<MachineInstr *> ExactExit;
+
   for (MachineInstr &MI : llvm::make_early_inc_range(
            llvm::make_range(MBB.getFirstNonPHI(), MBB.end()))) {
     // Pick up any WQM exits
@@ -643,6 +658,7 @@ void AMDGPUWholeQuadMode::lowerBlock(MachineBasicBlock &MBB, BlockInfo &BI,
       LIS->InsertMachineInstrInMaps(*SaveExecMI);
       LIS->InsertMachineInstrInMaps(*ExitMI);
       State = StateExact;
+      ExactEntry.push_back(ExitMI);
 
       continue;
     } else if (BlockMode == StateWQM && State == StateExact) {
@@ -655,6 +671,7 @@ void AMDGPUWholeQuadMode::lowerBlock(MachineBasicBlock &MBB, BlockInfo &BI,
       LIS->createAndComputeVirtRegInterval(SavedWQMReg);
       SavedWQMReg = Register();
       State = StateWQM;
+      ExactExit.push_back(RestoreMI);
     }
 
     MachineInstr *SplitPoint = nullptr;
@@ -701,6 +718,36 @@ void AMDGPUWholeQuadMode::lowerBlock(MachineBasicBlock &MBB, BlockInfo &BI,
     LIS->InsertMachineInstrInMaps(*RestoreMI);
     LIS->createAndComputeVirtRegInterval(SavedWQMReg);
     State = StateWQM;
+    ExactExit.push_back(RestoreMI);
+  }
+
+  // Exact regions in non-uniform control flow may yield EXECZ.
+  // This must be avoided by branching over them.
+  assert(ExactEntry.size() == ExactExit.size());
+  if (!HasEntryExec) {
+    using DomTreeT = DomTreeBase<MachineBasicBlock>;
+    for (unsigned Region = 0; Region < ExactEntry.size(); ++Region) {
+      MachineInstr *Entry = ExactEntry[Region];
+      MachineInstr *Exit = ExactExit[Region];
+      auto *ExitBB = splitBlock(&*std::prev(Exit->getIterator()),
+                                /*UpdateTerminator=*/false);
+      splitBlock(Entry);
+
+      auto *EntryBB = Entry->getParent();
+      assert(ExitBB != EntryBB);
+      MachineInstr *BranchMI = BuildMI(*EntryBB, EntryBB->end(), DebugLoc(),
+                                       TII->get(AMDGPU::S_CBRANCH_EXECZ))
+                                   .addMBB(ExitBB);
+      EntryBB->addSuccessor(ExitBB);
+
+      LIS->InsertMachineInstrInMaps(*BranchMI);
+      SmallVector<DomTreeT::UpdateType, 1> DTUpdates;
+      DTUpdates.push_back({DomTreeT::Insert, EntryBB, ExitBB});
+      if (MDT)
+        MDT->applyUpdates(DTUpdates);
+      if (PDT)
+        PDT->applyUpdates(DTUpdates);
+    }
   }
 
   // Perform splitting after instruction scan to simplify iteration.
