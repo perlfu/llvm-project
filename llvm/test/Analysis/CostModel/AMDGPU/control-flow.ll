@@ -5,13 +5,13 @@
 
 define amdgpu_kernel void @test_br_cost(ptr addrspace(1) %vaddr, i32 %b) #0 {
 ; ALL-LABEL: 'test_br_cost'
-; ALL-NEXT:  Cost Model: Found an estimated cost of 7 for instruction: br i1 undef, label %bb1, label %bb2
+; ALL-NEXT:  Cost Model: Found an estimated cost of 4 for instruction: br i1 undef, label %bb1, label %bb2
 ; ALL-NEXT:  Cost Model: Found an estimated cost of 4 for instruction: br label %bb2
 ; ALL-NEXT:  Cost Model: Found an estimated cost of 1 for instruction: %phi = phi i32 [ %b, %bb0 ], [ undef, %bb1 ]
 ; ALL-NEXT:  Cost Model: Found an estimated cost of 10 for instruction: ret void
 ;
 ; ALL-SIZE-LABEL: 'test_br_cost'
-; ALL-SIZE-NEXT:  Cost Model: Found an estimated cost of 5 for instruction: br i1 undef, label %bb1, label %bb2
+; ALL-SIZE-NEXT:  Cost Model: Found an estimated cost of 1 for instruction: br i1 undef, label %bb1, label %bb2
 ; ALL-SIZE-NEXT:  Cost Model: Found an estimated cost of 1 for instruction: br label %bb2
 ; ALL-SIZE-NEXT:  Cost Model: Found an estimated cost of 0 for instruction: %phi = phi i32 [ %b, %bb0 ], [ undef, %bb1 ]
 ; ALL-SIZE-NEXT:  Cost Model: Found an estimated cost of 1 for instruction: ret void
