@@ -69,6 +69,7 @@
 #include "llvm/Support/CommandLine.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/ErrorHandling.h"
+#include "llvm/Support/InstructionCost.h"
 #include "llvm/Support/KnownBits.h"
 #include "llvm/Support/MathExtras.h"
 #include "llvm/Support/raw_ostream.h"
@@ -3266,11 +3267,24 @@ bool SimplifyCFGOpt::speculativelyExecuteBB(CondBrInst *BI,
 
   BasicBlock *BB = BI->getParent();
   BasicBlock *EndBB = ThenBB->getTerminator()->getSuccessor(0);
+
   InstructionCost Budget =
       PHINodeFoldingThreshold * TargetTransformInfo::TCC_Basic;
 
-  // If ThenBB is actually on the false edge of the conditional branch, remember
-  // to swap the select operands later.
+  // Allow extra budget for eliminating expensive conditional branches.
+  InstructionCost ExtraBudget =
+      TTI.getCFInstrCost(Instruction::CondBr,
+                         TargetTransformInfo::TCK_SizeAndLatency, BI) -
+      TTI.getCFInstrCost(Instruction::UncondBr,
+                         TargetTransformInfo::TCK_SizeAndLatency);
+
+  assert(ExtraBudget.isValid() && ExtraBudget >= 0 &&
+         "Conditional branch should be at least as expensive as unconditional");
+
+  Budget += ExtraBudget;
+
+  // If ThenBB is actually on the false edge of the conditional branch,
+  // remember to swap the select operands later.
   bool Invert = false;
   if (ThenBB != BI->getSuccessor(0)) {
     assert(ThenBB == BI->getSuccessor(1) && "No edge from 'if' block?");

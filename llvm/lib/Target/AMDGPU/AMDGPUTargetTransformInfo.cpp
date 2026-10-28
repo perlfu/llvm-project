@@ -20,6 +20,7 @@
 #include "MCTargetDesc/AMDGPUMCTargetDesc.h"
 #include "SIModeRegisterDefaults.h"
 #include "llvm/ADT/SmallBitVector.h"
+#include "llvm/ADT/Uniformity.h"
 #include "llvm/Analysis/InlineCost.h"
 #include "llvm/Analysis/LoopInfo.h"
 #include "llvm/Analysis/ValueTracking.h"
@@ -997,6 +998,34 @@ GCNTTIImpl::getIntrinsicInstrCost(const IntrinsicCostAttributes &ICA,
   return LT.first * NElts * InstRate;
 }
 
+// Conservative local check that \p V is uniform at a use in \p UseBB.
+// PHIs and definitions outside UseBB and the entry block are
+// rejected.
+static bool isLocallyUniform(const GCNTTIImpl &TTI, const Value *V,
+                             const BasicBlock *UseBB, unsigned Depth = 0) {
+  if (isa<Constant>(V))
+    return true;
+
+  ValueUniformity VU = TTI.getValueUniformity(V);
+  if (VU != ValueUniformity::Default)
+    return VU == ValueUniformity::AlwaysUniform;
+
+  if (isa<Argument>(V))
+    return true;
+
+  const auto *Inst = dyn_cast<Instruction>(V);
+  if (!Inst || isa<PHINode>(Inst) ||
+      !(Inst->getParent() == UseBB || Inst->getParent()->isEntryBlock()))
+    return false;
+
+  if (Depth >= 6)
+    return false;
+
+  return all_of(Inst->operands(), [&](const Use &Op) {
+    return isLocallyUniform(TTI, Op.get(), UseBB, Depth + 1);
+  });
+}
+
 InstructionCost GCNTTIImpl::getCFInstrCost(unsigned Opcode,
                                            TTI::TargetCostKind CostKind,
                                            const Instruction *I) const {
@@ -1010,8 +1039,12 @@ InstructionCost GCNTTIImpl::getCFInstrCost(unsigned Opcode,
     // Branch instruction takes about 4 slots on gfx900.
     return SCost ? 1 : 4;
   case Instruction::CondBr:
-    // Suppose conditional branch takes additional 3 exec manipulations
-    // instructions in average.
+    if (I && isLocallyUniform(*this, cast<CondBrInst>(I)->getCondition(),
+                              I->getParent()))
+      return SCost ? 1 : 4;
+
+    // Suppose a divergent conditional branch takes additional 3 exec
+    // manipulations on average.
     return CBrCost;
   case Instruction::Switch: {
     const auto *SI = dyn_cast_or_null<SwitchInst>(I);
